@@ -1,0 +1,68 @@
+#!/bin/bash
+
+JAVA_HOME="/usr/jdk/instances/java1.6.0"
+
+
+##################
+# PATH
+##################
+PATH=$PATH:${VISIBROKER_HOME}/bin
+
+##################
+# CLASSPATH
+##################
+CLASSPATH=/opt/sw/Certificate/lib/Certificate.jar
+CLASSPATH=${CLASSPATH}:/opt/sw/Certificate/lib/Certificate.jar
+
+#mysql jars
+CLASSPATH=${CLASSPATH}:/opt/sw/Certificate/lib/mysql-connector-java-5.1.22-bin.jar
+
+#derby jars
+CLASSPATH=${CLASSPATH}:/opt/sw/Certificate/lib/derby.jar
+CLASSPATH=${CLASSPATH}:/opt/sw/Certificate/lib/derbynet.jar
+
+#Bouncycastle jars
+CLASSPATH=${CLASSPATH}:/opt/lib/bcprov-jdk15.jar
+
+
+
+##################
+# JAVAFLAGS
+##################
+
+
+# Unquote possible JAVAFLAGS overrides from svccfg
+JAVAFLAGS="`echo ${JAVAFLAGS} | sed -e 's/\"//g'`"
+JAVAFLAGS="${JAVAFLAGS} -Xmx1g"
+JAVAFLAGS="${JAVAFLAGS} -Djava.util.logging.config.file"
+
+JAVAFLAGS="${JAVAFLAGS} -Dse..security.caas.admin.runWithoutOssServer=true"
+
+
+##################
+# REMOTEDEBUG
+REMOTEDEBUG_S="-Xdebug -Xrunjdwp:transport=dt_socket,address=8002,server=y,suspend=y"
+REMOTEDEBUG_NS="-Xdebug -Xrunjdwp:transport=dt_socket,address=8002,server=y,suspend=n"
+##################
+
+
+# Set umask for able to write log for different users into the same log file
+umask -S 0777
+
+##################
+# MAIN class
+##################
+if [ -z "${MAIN}" ]; then
+  case "`basename $0`" in
+    certAdmin)
+    	MAIN=org.sumnata.cli.certAdmin	
+    	 #JAVAFLAGS="$REMOTEDEBUG_S $JAVAFLAGS"
+    	;;
+    *) echo "Could not determine MAIN class" >&2; exit 2
+  esac
+fi
+
+##################
+# Launch
+##################
+exec "${JAVA_HOME}/bin/java" -cp "${CLASSPATH}" ${JAVAFLAGS} "${MAIN}" ${ARG} "$@"
