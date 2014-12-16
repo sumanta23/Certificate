@@ -17,10 +17,6 @@ public class IssueCertificate {
 	 * @throws Exception
 	 */
 	public static void main(final String[] args) throws Exception {
-		final Certificate rootca = SamCA.loadCertificateFromFile("RootCA.crt");
-		final KeyPair pair = SamCA.generateRSAKeyPair();
-		PKCS10CertificationRequest cr = SamCA.generateCSR(pair, "CN=my cert");
-
 		final SamCA ca = new SamCA("RootCA.crt", "rootkeypair");
 		ca.issueCertificate(null, "CN=my cert", 365,
 				KeyPurposeId.id_kp_ipsecUser);
