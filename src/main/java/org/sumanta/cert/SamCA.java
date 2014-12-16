@@ -66,6 +66,7 @@ public class SamCA {
 		try {
 			this.caKeyPair = SamCA.loadKeyPairFromFile(caKeyFile);
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 		if (this.caKeyPair == null) {
@@ -85,6 +86,7 @@ public class SamCA {
 		try {
 			this.caCertificate = SamCA.loadCertificateFromFile(caCertFile);
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 		if (this.caCertificate == null) {
@@ -918,7 +920,7 @@ public class SamCA {
 				out.println(cert.getNotBefore());
 				out.print(cert.getNotAfter());
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 	}
