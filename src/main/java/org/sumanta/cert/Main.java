@@ -1,11 +1,10 @@
 package org.sumanta.cert;
 
-import org.bouncycastle.asn1.x509.KeyPurposeId;
-import org.bouncycastle.openssl.PEMWriter;
-
 import java.io.FileWriter;
 import java.util.logging.Logger;
-import org.sumanta.cert.*;
+
+import org.bouncycastle.asn1.x509.KeyPurposeId;
+import org.bouncycastle.openssl.PEMWriter;
 
 public class Main {
 
