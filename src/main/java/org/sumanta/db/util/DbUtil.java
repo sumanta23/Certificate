@@ -38,14 +38,14 @@ public class DbUtil {
 	}
 
 	public static void parseArguments(String[] paramArrayOfString) {
-		if ((paramArrayOfString.length > 0)
-				&& (paramArrayOfString[0].equalsIgnoreCase("derbyclient"))) {
+		if (paramArrayOfString.length > 0
+				&& paramArrayOfString[0].equalsIgnoreCase("derbyclient")) {
 			Constant.framework = "derbyclient";
 			Constant.driver = "org.apache.derby.jdbc.ClientDriver";
 			Constant.protocol = "jdbc:derby://localhost:1527/";
 		}
-		if ((paramArrayOfString.length > 0)
-				&& (paramArrayOfString[0].equalsIgnoreCase("embeded"))) {
+		if (paramArrayOfString.length > 0
+				&& paramArrayOfString[0].equalsIgnoreCase("embeded")) {
 			Constant.framework = "embedded";
 			Constant.driver = "org.apache.derby.jdbc.EmbeddedDriver";
 			Constant.protocol = "jdbc:derby:";

@@ -20,7 +20,6 @@ public class SimpleApp {
 		loadDriver();
 		Connection localConnection = null;
 		ArrayList localArrayList = new ArrayList();
-		PreparedStatement localPreparedStatement1 = null;
 		PreparedStatement localPreparedStatement2 = null;
 		Statement localStatement1 = null;
 		ResultSet localResultSet = null;
