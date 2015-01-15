@@ -11,7 +11,7 @@ import java.security.cert.X509Certificate;
  */
 public class ToDER {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(final String[] args) throws IOException {
 		//InputStream pemStream = new ByteArrayInputStream(pemKey.getBytes());
 		//byte[] derKey = EncryptionUtil.convertRsaPemToDer(pemStream);
 		toDER(SamCA.loadCertificateFromFile("rootca.crt"),"rootca.der");
@@ -23,15 +23,15 @@ public class ToDER {
 	 * @param cert
 	 * @param filepath
 	 */
-	private static void toDER(X509Certificate cert,String filepath) {
+	private static void toDER(final X509Certificate cert,final String filepath) {
 		try {
 			FileOutputStream fos = new FileOutputStream(filepath);
-		      byte[] certBytes = cert.getEncoded();
+		      final byte[] certBytes = cert.getEncoded();
 		      fos.write(certBytes);
 		      fos.close();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
-		} catch (CertificateEncodingException e) {
+		} catch (final CertificateEncodingException e) {
 			e.printStackTrace();
 		}
 	}

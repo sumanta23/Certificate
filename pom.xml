@@ -149,10 +149,7 @@
 				<version>${version.maven-pmd}</version>
 				<configuration>
 					<rulesets>
-						<!-- Custom local file system rule set -->
 						<ruleset>${user.home}/.m2/pmdrules.xml</ruleset>
-						<!-- Custom remote rule set accessed via a URL -->
-						<!--<ruleset>http://localhost/design.xml</ruleset> -->
 					</rulesets>
 				</configuration>
 			</plugin>

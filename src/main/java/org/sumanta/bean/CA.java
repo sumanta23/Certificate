@@ -27,7 +27,7 @@ public class CA {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
@@ -35,7 +35,7 @@ public class CA {
 		return dn;
 	}
 
-	public void setDn(String dn) {
+	public void setDn(final String dn) {
 		this.dn = dn;
 	}
 
@@ -43,7 +43,7 @@ public class CA {
 		return serialno;
 	}
 
-	public void setSerialno(String serialno) {
+	public void setSerialno(final String serialno) {
 		this.serialno = serialno;
 	}
 
@@ -51,7 +51,7 @@ public class CA {
 		return issuer;
 	}
 
-	public void setIssuer(String issuer) {
+	public void setIssuer(final String issuer) {
 		this.issuer = issuer;
 	}
 
@@ -59,7 +59,7 @@ public class CA {
 		return issuerserialno;
 	}
 
-	public void setIssuerserailno(String issuerserailno) {
+	public void setIssuerserailno(final String issuerserailno) {
 		this.issuerserialno = issuerserailno;
 	}
 
@@ -67,7 +67,7 @@ public class CA {
 		return certificate;
 	}
 
-	public void setCertificate(byte[] certificate) {
+	public void setCertificate(final byte[] certificate) {
 		this.certificate = certificate;
 	}
 
@@ -75,7 +75,7 @@ public class CA {
 		return keypair;
 	}
 
-	public void setKeypair(byte[] keypair) {
+	public void setKeypair(final byte[] keypair) {
 		this.keypair = keypair;
 	}
 

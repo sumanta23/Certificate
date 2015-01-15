@@ -18,16 +18,16 @@ public class ToP12 {
 	 * @throws CertificateException
 	 * @throws IOException
 	 */
-	public static void toP12withPrivateKey(String alias,String keystorepassword,Certificate[] certchain, PrivateKey privateKey, String filename) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+	public static void toP12withPrivateKey(final String alias,final String keystorepassword,final Certificate[] certchain,final PrivateKey privateKey, final String filename) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
 		try{
 			KeyStore outStore = KeyStore.getInstance("PKCS12");
 			outStore.load(null, keystorepassword.toCharArray());
 			outStore.setKeyEntry(alias, privateKey, keystorepassword.toCharArray(), certchain);
-			OutputStream outputStream = new FileOutputStream(filename);
+			final OutputStream outputStream = new FileOutputStream(filename);
 			outStore.store(outputStream, keystorepassword.toCharArray());
 			outputStream.flush();
 			outputStream.close();
-		}catch(Exception e){
+		}catch(final Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -41,11 +41,11 @@ public class ToP12 {
 	 * @throws CertificateException
 	 * @throws IOException
 	 */
-	public static void main(String[] args) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+	public static void main(final String[] args) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
 		try {
-			Certificate[] cert={SamCA.loadCertificateFromFile("jh.crt")};
+			final Certificate[] cert={SamCA.loadCertificateFromFile("jh.crt")};
 			toP12withPrivateKey("mykey", "password", cert, null, "public.p12");
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 	}

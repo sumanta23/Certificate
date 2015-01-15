@@ -25,7 +25,7 @@ public class Jksgenarator {
 		final X509Certificate cert = SamCA
 				.loadCertificateFromFile("rootca.crt");
 		ks.setCertificateEntry("RootCA", cert);
-		Certificate[] c={cert};
+		final Certificate[] c={cert};
 		ks.setKeyEntry("df", cert.getPublicKey(), "password".toCharArray(), c);
 		final OutputStream out = new FileOutputStream(new File("Keystore.jks"));
 		ks.store(out, "password".toCharArray());

@@ -19,7 +19,7 @@ public class ToPEM {
 		toPEM(SamCA.loadCertificateFromFile("rootca.crt"),"rootca.pem");
 	}
 
-	public static void toPEM(final X509Certificate x509Certificate,String name)
+	public static void toPEM(final X509Certificate x509Certificate,final String name)
 			throws IOException, CertificateParsingException {
 		final Writer writer = new FileWriter(name);
 		final PEMWriter pemWriter = new PEMWriter(writer);
