@@ -33,7 +33,7 @@ jQuery(document).ready(function($) {
 <![endif]-->
 <script>
 
-var resturl="http://localhost:8080/Certificate/rest/certapi/execute"
+var resturl="http://localhost:8080/Certificate/rest/certapi"
 
 String.prototype.strip = function(char) {
     return this.replace(new RegExp("^" + char + "*"), '').
@@ -85,10 +85,14 @@ $.extend_if_has = function(desc, source, array) {
 jQuery(document).ready(function($) {
 
     $('#tilda').tilda(function(command, terminal) {
-        terminal.echo('you type command "' + command + '"');
-        restapi(command,function(data) {   
-            $("#modelName").val(data.name); 
-            terminal.echo(data)
+        //terminal.echo('you type command "' + command + '"');
+        restapi(command,function(data) { 
+        	
+        	 if(data.match("http://")){
+        		 downloadapi(data)
+        	 }else{
+        	 	terminal.echo(data);
+        	 }
           });   
     });
 });
@@ -97,13 +101,21 @@ jQuery(document).ready(function($) {
 restapi = function(mystr,callback) {  
     $.ajax({  
       type: 'POST',  
-      url: this.resturl + '/' + mystr,  
+      url: this.resturl +'/'+'execute' +'/' + mystr,  
       contentType: 'application/json',  
       success: callback, 
-      error: function(req, status, ex) {},  
+      error: function(req, status, ex){alert(ex)},  
       timeout:60000  
     });  
   };
+  
+downloadapi = function(url){
+	$.ajax({  
+	      type: 'GET',  
+	      url: this.resturl + '/'+ 'download' +'/'+url,    
+	      timeout:60000  
+	    });  
+};  
 
 </script>
 </head>

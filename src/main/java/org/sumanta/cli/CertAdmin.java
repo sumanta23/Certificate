@@ -8,15 +8,16 @@ public class CertAdmin extends CertAdminInterface {
 	 * @param args
 	 * @throws Exception
 	 */
-	public static void main(final String[] args) throws Exception {
+	public String parse(final String[] args) throws Exception {
 		CertAdmin ca = new CertAdmin();
 		ca.parseCli(args);
+		String result="";
 		if (ca.type.equals(Type.ca)) {
 			if (ca.opt.equals(Operation.create)) {
 				SamCA.createCA(ca.issuer, ca.commonName, ca.validity, null);
 			} else if (ca.opt.equals(Operation.list)) {
 				try {
-					SamCA.listCertificate(ca.type, ca.commonName, ca.serialno);
+					result=SamCA.listCertificate(ca.type, ca.commonName, ca.serialno);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -33,7 +34,7 @@ public class CertAdmin extends CertAdminInterface {
 				SamCA.createRootCA(ca.commonName, ca.validity);
 			} else if (ca.opt.equals(Operation.list)) {
 				try {
-					SamCA.listCertificate(ca.type, ca.commonName, ca.serialno);
+					result=SamCA.listCertificate(ca.type, ca.commonName, ca.serialno);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -64,6 +65,7 @@ public class CertAdmin extends CertAdminInterface {
 				}
 			}
 		}
+		return result;
 	}
 
 }

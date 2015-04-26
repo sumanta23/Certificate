@@ -9,19 +9,30 @@
 
 		<property name="log4j.logger.org.hibernate">Level.OFF</property>
 		
-		<!-- Database connection settings -->
-		<!-- property name="connection.driver_class">org.apache.derby.jdbc.ClientDriver</property -->
-		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<!-- property name="connection.url">jdbc:derby:C:\\myfiles\\db\\MyDb</property -->
-		<property name="connection.url">jdbc:mysql://localhost:3306/certdb</property>
+		
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">admin</property>
+ 
+        <!-- SQL dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		
+		
+<!-- 		
+		Database connection settings
 
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/certdb</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">pass</property>
 
-		<!-- JDBC connection pool (use the built-in) > <property name="connection.pool_size">1</property -->
+		JDBC connection pool (use the built-in) > 
+		<property name="connection.pool_size">1</property
 
-		<!-- SQL dialect -->
+		SQL dialect
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		 -->
 		
 <!-- 		<property name=”hibernate.connection.driver_class”>org.apache.derby.jdbc.ClientDriver</property>
 <property name=”hibernate.connection.url”>jdbc:derby://localhost:1527/databaseName;create=true</property>

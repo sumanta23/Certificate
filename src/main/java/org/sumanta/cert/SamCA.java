@@ -808,12 +808,10 @@ public class SamCA {
 	 * @param serialNo
 	 * @throws Exception
 	 */
-	public static void listCertificate(Type type, String commonName,
+	public static String listCertificate(Type type, String commonName,
 			String serialNo) throws Exception {
 		X509Certificate cert = null;
-
-		// final Connection localConnection = DriverManager
-		// .getConnection(Constant.protocol + str);
+		StringBuffer result=new StringBuffer();
 		String query = "";
 		if (commonName != null && !commonName.isEmpty()) {
 			query = query + "where dn='" + commonName + "'";
@@ -833,17 +831,17 @@ public class SamCA {
 				CA ca = (CA) object;
 				X509Certificate c = (X509Certificate) deserialize(new ByteArrayInputStream(
 						ca.getCertificate()));
-				System.out.print(ca.getId());
-				System.out.print("\t");
-				System.out.print(ca.getDn());
-				System.out.print("\t");
-				System.out.print(c.getSerialNumber());
-				System.out.print("\t");
-				System.out.print(c.getIssuerDN());
-				System.out.print("\t");
-				System.out.print(c.getNotBefore());
-				System.out.print("\t");
-				System.out.println(c.getNotAfter());
+				result.append(ca.getId());
+				result.append("\t");
+				result.append(ca.getDn());
+				result.append("\t");
+				result.append(c.getSerialNumber());
+				result.append("\t");
+				result.append(c.getIssuerDN());
+				result.append("\t");
+				result.append(c.getNotBefore());
+				result.append("\t");
+				result.append(c.getNotAfter());
 			}
 		}
 		if (type.equals(Type.rootca)) {
@@ -854,17 +852,17 @@ public class SamCA {
 				RootCA rca = (RootCA) object;
 				X509Certificate c = (X509Certificate) deserialize(new ByteArrayInputStream(
 						rca.getCertificate()));
-				System.out.print(rca.getId());
-				System.out.print("\t");
-				System.out.print(rca.getDn());
-				System.out.print("\t");
-				System.out.print(c.getSerialNumber());
-				System.out.print("\t");
-				System.out.print(c.getIssuerDN());
-				System.out.print("\t");
-				System.out.print(c.getNotBefore());
-				System.out.print("\t");
-				System.out.println(c.getNotAfter());
+				result.append(rca.getId());
+				result.append("\t");
+				result.append(rca.getDn());
+				result.append("\t");
+				result.append(c.getSerialNumber());
+				result.append("\t");
+				result.append(c.getIssuerDN());
+				result.append("\t");
+				result.append(c.getNotBefore());
+				result.append("\t");
+				result.append(c.getNotAfter());
 			}
 		}
 		if (type.equals(Type.certificate)) {
@@ -874,20 +872,20 @@ public class SamCA {
 				org.sumanta.bean.Certificate certificate = (org.sumanta.bean.Certificate) object;
 				X509Certificate c = (X509Certificate) deserialize(new ByteArrayInputStream(
 						certificate.getCertificate()));
-				System.out.print(certificate.getId());
-				System.out.print("\t");
-				System.out.print(certificate.getDn());
-				System.out.print("\t");
-				System.out.print(c.getSerialNumber());
-				System.out.print("\t");
-				System.out.print(c.getIssuerDN());
-				System.out.print("\t");
-				System.out.print(c.getNotBefore());
-				System.out.print("\t");
-				System.out.println(c.getNotAfter());
+				result.append(certificate.getId());
+				result.append("\t");
+				result.append(certificate.getDn());
+				result.append("\t");
+				result.append(c.getSerialNumber());
+				result.append("\t");
+				result.append(c.getIssuerDN());
+				result.append("\t");
+				result.append(c.getNotBefore());
+				result.append("\t");
+				result.append(c.getNotAfter());
 			}
 		}
-
+		return result.toString();
 	}
 
 	/**
