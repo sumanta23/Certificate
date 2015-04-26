@@ -11,6 +11,7 @@ public class CertApi {
 	@POST
 	@Path("/execute/{command}")
 	public String execute(@PathParam("command") String commandString){
+		System.out.println(commandString);
 		return "success";
 	}
 	
