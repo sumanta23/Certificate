@@ -2,6 +2,8 @@ Certificate
 ===========
 This application enables you to create your own root ca and sign certificates .
 
+[![Build Status](https://travis-ci.org/sumanta23/Certificate.svg)](https://travis-ci.org/sumanta23/Certificate)
+
 Key features:
 ===========
 Rootca, CA, SubCA, Certificate.
