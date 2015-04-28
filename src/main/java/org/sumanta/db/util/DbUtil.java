@@ -54,7 +54,7 @@ public class DbUtil {
 
 	public static void reportFailure(String paramString) {
 		System.err.println("\nData verification failed:");
-		System.err.println('\t' + paramString);
-	}
+    System.err.println('\t' + paramString);
+  }
 
 }

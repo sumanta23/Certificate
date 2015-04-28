@@ -1,6 +1,9 @@
 package org.sumanta.bean;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity(name = "RootCA")
 public class RootCA {

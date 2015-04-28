@@ -1,6 +1,8 @@
 package org.sumanta.cert;
 
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.security.cert.CertificateParsingException;
 import java.security.cert.X509Certificate;
 

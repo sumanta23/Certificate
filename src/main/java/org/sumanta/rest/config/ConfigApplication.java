@@ -9,16 +9,16 @@ import javax.ws.rs.core.Application;
 import org.sumanta.rest.api.CertApi;
 
 @ApplicationPath("/restapi")
-public class ConfigApplication  extends Application {
+public class ConfigApplication extends Application {
 
-	private Set<Object> singletons = new HashSet<Object>();
+  private Set<Object> singletons = new HashSet<Object>();
 
-	public ConfigApplication() {
-		singletons.add(new CertApi());
-	}
+  public ConfigApplication() {
+    singletons.add(new CertApi());
+  }
 
-	@Override
-	public Set<Object> getSingletons() {
-		return singletons;
-	}
+  @Override
+  public Set<Object> getSingletons() {
+    return singletons;
+  }
 }
