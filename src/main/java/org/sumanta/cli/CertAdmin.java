@@ -39,7 +39,8 @@ public class CertAdmin extends CertAdminInterface {
         }
       } else if (ca.opt.equals(Operation.export)) {
         try {
-          SamCA.exportCertificateToFile(ca.type, ca.serialno, ca.tofile, ca.cat, ca.format);
+          String fileid=SamCA.exportCertificateToFile(ca.type, ca.serialno, ca.tofile, ca.cat, ca.format);
+          return fileid;
         } catch (Exception e) {
           e.printStackTrace();
         }

@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 import javax.security.auth.x500.X500Principal;
@@ -65,6 +66,7 @@ import org.sumanta.db.util.Constant;
 import org.sumanta.dbhandler.CAManager;
 import org.sumanta.dbhandler.CertificateManager;
 import org.sumanta.dbhandler.RootCAManager;
+import org.sumanta.rest.api.ContentHolder;
 
 public class SamCA {
 
@@ -515,9 +517,10 @@ public class SamCA {
    * @param file
    * @param cat
    */
-  public static void exportCertificateToFile(Type type, String serialNo, String file, Category cat, Format format) {
+  public static String exportCertificateToFile(Type type, String serialNo, String file, Category cat, Format format) {
     X509Certificate cert = null;
     KeyPair key = null;
+    String fileid = null;
     try {
       String query = "";
       if (serialNo != null && serialNo.equals("")) {
@@ -572,12 +575,13 @@ public class SamCA {
         // SamCA.exportCertificateChain(cert.getSerialNumber().toString()),
         // key.getPrivate(), "key.p12");
       } else if (Category.certificate == cat) {
-        saveCertificateToFile(cert, file);
+        fileid=saveCertificateToFile(cert, file);
       }
 
     } catch (Exception e) {
       e.printStackTrace();
     }
+    return fileid;
   }
 
   /**
@@ -590,12 +594,15 @@ public class SamCA {
    * @throws SignatureException
    * @throws IOException
    */
-  public static void saveCertificateToFile(Certificate certificate, String name) throws NoSuchAlgorithmException,
+  public static String saveCertificateToFile(Certificate certificate, String name) throws NoSuchAlgorithmException,
       CertificateEncodingException, NoSuchProviderException, InvalidKeyException, SignatureException, IOException {
-    final Writer writer = new FileWriter(name);
+    /*final Writer writer = new FileWriter(name);
     final PEMWriter pemWriter = new PEMWriter(writer);
     pemWriter.writeObject(certificate);
-    pemWriter.close();
+    pemWriter.close();*/
+    String key="http"+System.currentTimeMillis();
+    ContentHolder.getInstance().getHolder().put(key, certificate.getEncoded());
+    return key;
   }
 
   public static Object getCertificateBySerialNo(String serialNo) {
