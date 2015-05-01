@@ -1,5 +1,7 @@
 package org.sumanta.rest.api;
 
+import java.io.ByteArrayInputStream;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -7,8 +9,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.StreamingOutput;
 
 import org.sumanta.cli.CertAdmin;
+import org.sumanta.rest.config.ByteArrayStreamingOutput;
 
 @Path("/certapi")
 public class CertApi {
@@ -37,9 +41,11 @@ public class CertApi {
     try {
       byte[] fileinbyte=ContentHolder.getInstance().getHolder().get(url);
       //logic for file
+      ByteArrayInputStream arrayInputStream=new ByteArrayInputStream(fileinbyte);
       response = Response.ok((Object) fileinbyte);
       response.header("Content-Disposition", "attachment; filename=\"cert.crt\"");
       return response.build();
+      //return new ByteArrayStreamingOutput(arrayInputStream);
     } catch (Exception e) {
     }
     return null;

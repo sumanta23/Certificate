@@ -600,6 +600,7 @@ public class SamCA {
     final PEMWriter pemWriter = new PEMWriter(writer);
     pemWriter.writeObject(certificate);
     pemWriter.close();*/
+    System.out.println(certificate.getEncoded());
     String key="http"+System.currentTimeMillis();
     ContentHolder.getInstance().getHolder().put(key, certificate.getEncoded());
     return key;

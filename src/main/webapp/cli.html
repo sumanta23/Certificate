@@ -33,7 +33,7 @@ jQuery(document).ready(function($) {
 <![endif]-->
 <script>
 
-var resturl="http://localhost:8090/Certificate/rest/certapi"
+var resturl="http://localhost:8080/Certificate/rest/certapi"
 
 String.prototype.strip = function(char) {
     return this.replace(new RegExp("^" + char + "*"), '').
@@ -109,12 +109,10 @@ restapi = function(mystr,callback) {
     });  
   };
   
-downloadapi = function(url){
-	$.ajax({  
-	      type: 'GET',  
-	      url: this.resturl+'/'+'download'+'/'+ url,    
-	      timeout:60000  
-	    });  
+downloadapi = function(url){ 
+	/* document.location = 'data:Application/octet-stream,' +
+    encodeURIComponent(this.resturl+'/'+'download'+'/'+ url); */
+	window.open(this.resturl+'/'+'download'+'/'+url);
 };  
 
 </script>
