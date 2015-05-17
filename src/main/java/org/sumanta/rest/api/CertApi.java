@@ -30,7 +30,7 @@ public class CertApi {
     }
     return response;
   }
-  
+
   @GET
   @Path("/download/{url}")
   @Produces("application/octet-stream")
@@ -39,13 +39,13 @@ public class CertApi {
     ResponseBuilder response;
     CertAdmin certAdmin = new CertAdmin();
     try {
-      byte[] fileinbyte=ContentHolder.getInstance().getHolder().get(url);
-      //logic for file
-      ByteArrayInputStream arrayInputStream=new ByteArrayInputStream(fileinbyte);
+      byte[] fileinbyte = ContentHolder.getInstance().getHolder().get(url);
+      // logic for file
+      ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(fileinbyte);
       response = Response.ok((Object) fileinbyte);
       response.header("Content-Disposition", "attachment; filename=\"cert.crt\"");
       return response.build();
-      //return new ByteArrayStreamingOutput(arrayInputStream);
+      // return new ByteArrayStreamingOutput(arrayInputStream);
     } catch (Exception e) {
     }
     return null;

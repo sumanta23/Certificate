@@ -2,7 +2,8 @@ package org.sumanta.cli;
 
 import java.io.PrintStream;
 
-//interface for parcing cli command
+import org.sumanta.util.Constants;
+
 public abstract class CertAdminInterface {
 
   Type type;
@@ -18,12 +19,12 @@ public abstract class CertAdminInterface {
   public static void help() {
     final PrintStream out = System.out;
 
-    out.println("-create rootca -validity <days> -cn <>");
-    out.println("-create ca|certificate -issuer <> -validity <days> -cn <>");
+    out.println("create rootca -validity <days> -cn <>");
+    out.println("create ca|certificate -issuer <> -validity <days> -cn <>");
 
-    out.println("-list rootca|ca|certificate [-cn <>] [-serial <>]");
+    out.println("list rootca|ca|certificate [-cn <>] [-serial <>]");
 
-    out.println("-export -cat <keystore|truststore|certificate> rootca|ca|certificate -serial <> -tofile <> -format pem|crt|jks|der|p12");
+    out.println("export -cat <keystore|truststore|certificate> rootca|ca|certificate -serialno <> -filename <> -format pem|crt|jks|der|p12");
   }
 
   public void parseCli(final String[] argument) {
@@ -46,15 +47,15 @@ public abstract class CertAdminInterface {
     }
 
     // create
-    if (arg[0].equalsIgnoreCase("-create")) {
+    if (arg[0].equalsIgnoreCase(Constants.CREATE)) {
       opt = Operation.create;
-      if (arg[1].equalsIgnoreCase("ca")) {
+      if (arg[1].equalsIgnoreCase(Constants.CA)) {
         type = Type.ca;
-        if (arg[2].equalsIgnoreCase("-issuer")) {
+        if (arg[2].equalsIgnoreCase(Constants.ISSUER)) {
           issuer = arg[3];
-          if (arg[4].equalsIgnoreCase("-validity")) {
+          if (arg[4].equalsIgnoreCase(Constants.VALIDITY)) {
             validity = Integer.parseInt(arg[5]);
-            if (arg[6].equalsIgnoreCase("-cn")) {
+            if (arg[6].equalsIgnoreCase(Constants.CN)) {
               commonName = arg[7];
             } else {
               help();
@@ -68,11 +69,11 @@ public abstract class CertAdminInterface {
       }
 
       else {
-        if (arg[1].equalsIgnoreCase("rootca")) {
+        if (arg[1].equalsIgnoreCase(Constants.ROOTCA)) {
           type = Type.rootca;
-          if (arg[2].equalsIgnoreCase("-validity")) {
+          if (arg[2].equalsIgnoreCase(Constants.VALIDITY)) {
             validity = Integer.parseInt(arg[3]);
-            if (arg[4].equalsIgnoreCase("-cn")) {
+            if (arg[4].equalsIgnoreCase(Constants.CN)) {
               commonName = arg[5];
             } else {
               help();
@@ -83,13 +84,13 @@ public abstract class CertAdminInterface {
         }
 
         else {
-          if (arg[1].equalsIgnoreCase("certificate")) {
+          if (arg[1].equalsIgnoreCase(Constants.CERTIFICATE)) {
             type = Type.certificate;
-            if (arg[2].equalsIgnoreCase("-issuer")) {
+            if (arg[2].equalsIgnoreCase(Constants.ISSUER)) {
               issuer = arg[3];
-              if (arg[4].equalsIgnoreCase("-validity")) {
+              if (arg[4].equalsIgnoreCase(Constants.VALIDITY)) {
                 validity = Integer.parseInt(arg[5]);
-                if (arg[6].equalsIgnoreCase("-cn")) {
+                if (arg[6].equalsIgnoreCase(Constants.CN)) {
                   commonName = arg[7];
                 } else {
                   help();
@@ -110,47 +111,47 @@ public abstract class CertAdminInterface {
     // list
     if (arg[0].equalsIgnoreCase("-list")) {
       opt = Operation.list;
-      if (arg[1].equalsIgnoreCase("ca")) {
+      if (arg[1].equalsIgnoreCase(Constants.CA)) {
         type = Type.ca;
-        if (arg.length > 2 && arg[2].equalsIgnoreCase("-cn")) {
+        if (arg.length > 2 && arg[2].equalsIgnoreCase(Constants.CN)) {
           commonName = arg[3];
-          if (arg.length > 4 && arg[4].equalsIgnoreCase("-serialno")) {
+          if (arg.length > 4 && arg[4].equalsIgnoreCase(Constants.SERIALNO)) {
             serialno = arg[5];
           }
         }
-        if (arg.length > 2 && arg[2].equalsIgnoreCase("-serialno")) {
+        if (arg.length > 2 && arg[2].equalsIgnoreCase(Constants.SERIALNO)) {
           serialno = arg[3];
-          if (arg.length > 4 && arg[4].equalsIgnoreCase("-cn")) {
+          if (arg.length > 4 && arg[4].equalsIgnoreCase(Constants.CN)) {
             commonName = arg[5];
           }
         }
-      } else if (arg[1].equalsIgnoreCase("rootca")) {
+      } else if (arg[1].equalsIgnoreCase(Constants.ROOTCA)) {
         type = Type.rootca;
-        if (arg.length > 2 && arg[2].equalsIgnoreCase("-cn")) {
+        if (arg.length > 2 && arg[2].equalsIgnoreCase(Constants.CN)) {
           commonName = arg[3];
-          if (arg.length > 4 && arg[4].equalsIgnoreCase("-serialno")) {
+          if (arg.length > 4 && arg[4].equalsIgnoreCase(Constants.SERIALNO)) {
             serialno = arg[5];
           }
         }
-        if (arg.length > 2 && arg[2].equalsIgnoreCase("-serialno")) {
+        if (arg.length > 2 && arg[2].equalsIgnoreCase(Constants.SERIALNO)) {
           serialno = arg[3];
-          if (arg.length > 4 && arg[4].equalsIgnoreCase("-cn")) {
+          if (arg.length > 4 && arg[4].equalsIgnoreCase(Constants.CN)) {
             commonName = arg[5];
           }
         }
-      } else if (arg[1].equalsIgnoreCase("certificate")) {
+      } else if (arg[1].equalsIgnoreCase(Constants.CERTIFICATE)) {
         type = Type.certificate;
-        if (arg[1].equalsIgnoreCase("ca")) {
+        if (arg[1].equalsIgnoreCase(Constants.CA)) {
           type = Type.ca;
-          if (arg.length > 2 && arg[2].equalsIgnoreCase("-cn")) {
+          if (arg.length > 2 && arg[2].equalsIgnoreCase(Constants.CN)) {
             commonName = arg[3];
-            if (arg.length > 3 && arg[4].equalsIgnoreCase("-serialno")) {
+            if (arg.length > 3 && arg[4].equalsIgnoreCase(Constants.SERIALNO)) {
               serialno = arg[5];
             }
           }
-          if (arg.length > 2 && arg[2].equalsIgnoreCase("-serialno")) {
+          if (arg.length > 2 && arg[2].equalsIgnoreCase(Constants.SERIALNO)) {
             serialno = arg[3];
-            if (arg.length > 4 && arg[4].equalsIgnoreCase("-cn")) {
+            if (arg.length > 4 && arg[4].equalsIgnoreCase(Constants.CN)) {
               commonName = arg[5];
             }
           }
@@ -165,9 +166,9 @@ public abstract class CertAdminInterface {
         cat = Category.valueOf(arg[2]);
       }
 
-      if (arg.length > 3 && arg[3].equalsIgnoreCase("ca")) {
+      if (arg.length > 3 && arg[3].equalsIgnoreCase(Constants.CA)) {
         type = Type.ca;
-        if (arg[4].equalsIgnoreCase("-serialno")) {
+        if (arg[4].equalsIgnoreCase(Constants.SERIALNO)) {
           serialno = arg[5];
           if (arg[6].equalsIgnoreCase("-tofile")) {
             tofile = arg[7];
@@ -176,9 +177,9 @@ public abstract class CertAdminInterface {
             }
           }
         }
-      } else if (arg.length > 3 && arg[3].equalsIgnoreCase("rootca")) {
+      } else if (arg.length > 3 && arg[3].equalsIgnoreCase(Constants.ROOTCA)) {
         type = Type.rootca;
-        if (arg[4].equalsIgnoreCase("-serialno")) {
+        if (arg[4].equalsIgnoreCase(Constants.SERIALNO)) {
           serialno = arg[5];
           if (arg[6].equalsIgnoreCase("-tofile")) {
             tofile = arg[7];
@@ -187,9 +188,9 @@ public abstract class CertAdminInterface {
             }
           }
         }
-      } else if (arg.length > 3 && arg[3].equalsIgnoreCase("certificate")) {
+      } else if (arg.length > 3 && arg[3].equalsIgnoreCase(Constants.CERTIFICATE)) {
         type = Type.certificate;
-        if (arg[4].equalsIgnoreCase("-serialno")) {
+        if (arg[4].equalsIgnoreCase(Constants.SERIALNO)) {
           serialno = arg[5];
           if (arg[6].equalsIgnoreCase("-tofile")) {
             tofile = arg[7];

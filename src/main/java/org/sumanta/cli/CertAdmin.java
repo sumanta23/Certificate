@@ -4,6 +4,9 @@ import org.sumanta.cert.SamCA;
 
 public class CertAdmin extends CertAdminInterface {
 
+  
+  SamCA samCA=new SamCA();
+  
   /**
    * @param args
    * @throws Exception
@@ -14,32 +17,32 @@ public class CertAdmin extends CertAdminInterface {
     String result = "";
     if (ca.type.equals(Type.ca)) {
       if (ca.opt.equals(Operation.create)) {
-        SamCA.createCA(ca.issuer, ca.commonName, ca.validity, null);
+        samCA.createCA(ca.issuer, ca.commonName, ca.validity, null);
       } else if (ca.opt.equals(Operation.list)) {
         try {
-          result = SamCA.listCertificate(ca.type, ca.commonName, ca.serialno);
+          result = samCA.listCertificate(ca.type, ca.commonName, ca.serialno);
         } catch (Exception e) {
           e.printStackTrace();
         }
       } else if (ca.opt.equals(Operation.export)) {
         try {
-          SamCA.exportCertificateToFile(ca.type, ca.serialno, ca.tofile, ca.cat, ca.format);
+          samCA.exportCertificateToFile(ca.type, ca.serialno, ca.tofile, ca.cat, ca.format);
         } catch (Exception e) {
           e.printStackTrace();
         }
       }
     } else if (ca.type.equals(Type.rootca)) {
       if (ca.opt.equals(Operation.create)) {
-        SamCA.createRootCA(ca.commonName, ca.validity);
+        samCA.createRootCA(ca.commonName, ca.validity);
       } else if (ca.opt.equals(Operation.list)) {
         try {
-          result = SamCA.listCertificate(ca.type, ca.commonName, ca.serialno);
+          result = samCA.listCertificate(ca.type, ca.commonName, ca.serialno);
         } catch (Exception e) {
           e.printStackTrace();
         }
       } else if (ca.opt.equals(Operation.export)) {
         try {
-          String fileid=SamCA.exportCertificateToFile(ca.type, ca.serialno, ca.tofile, ca.cat, ca.format);
+          String fileid = samCA.exportCertificateToFile(ca.type, ca.serialno, ca.tofile, ca.cat, ca.format);
           return fileid;
         } catch (Exception e) {
           e.printStackTrace();
@@ -47,16 +50,16 @@ public class CertAdmin extends CertAdminInterface {
       }
     } else if (ca.type.equals(Type.certificate)) {
       if (ca.opt.equals(Operation.create)) {
-        SamCA.createCertificate(ca.issuer, ca.commonName, ca.validity, null);
+        samCA.createCertificate(ca.issuer, ca.commonName, ca.validity, null);
       } else if (ca.opt.equals(Operation.list)) {
         try {
-          SamCA.listCertificate(ca.type, ca.commonName, ca.serialno);
+          samCA.listCertificate(ca.type, ca.commonName, ca.serialno);
         } catch (Exception e) {
           e.printStackTrace();
         }
       } else if (ca.opt.equals(Operation.export)) {
         try {
-          SamCA.exportCertificateToFile(ca.type, ca.serialno, ca.tofile, ca.cat, ca.format);
+          samCA.exportCertificateToFile(ca.type, ca.serialno, ca.tofile, ca.cat, ca.format);
         } catch (Exception e) {
           e.printStackTrace();
         }

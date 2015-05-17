@@ -24,8 +24,8 @@ public class ToP12 {
    * @throws IOException
    */
   public static void toP12withPrivateKey(final String alias, final String keystorepassword,
-      final Certificate[] certchain, final PrivateKey privateKey, final String filename) throws KeyStoreException,
-      NoSuchAlgorithmException, CertificateException, IOException {
+          final Certificate[] certchain, final PrivateKey privateKey, final String filename) throws KeyStoreException,
+          NoSuchAlgorithmException, CertificateException, IOException {
     try {
       KeyStore outStore = KeyStore.getInstance("PKCS12");
       outStore.load(null, keystorepassword.toCharArray());
@@ -39,20 +39,4 @@ public class ToP12 {
     }
   }
 
-  /**
-   * @param args
-   * @throws KeyStoreException
-   * @throws NoSuchAlgorithmException
-   * @throws CertificateException
-   * @throws IOException
-   */
-  public static void main(final String[] args) throws KeyStoreException, NoSuchAlgorithmException,
-      CertificateException, IOException {
-    try {
-      final Certificate[] cert = { SamCA.loadCertificateFromFile("jh.crt") };
-      toP12withPrivateKey("mykey", "password", cert, null, "public.p12");
-    } catch (final Exception e) {
-      e.printStackTrace();
-    }
-  }
 }

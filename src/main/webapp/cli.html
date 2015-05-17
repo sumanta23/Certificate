@@ -2,22 +2,24 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>JQuery Terminal Emulator</title>
-  <meta name="Description" content="This is Certificate generation tool, You know what to do"/>
-  <script src="js/jquery-1.7.1.min.js"></script>
-  <script src="js/jquery.mousewheel-min.js"></script>
-  <script src="js/jquery.terminal-min.js"></script>
-  <link href="css/jquery.terminal.css" rel="stylesheet"/>
+<meta charset="utf-8" />
+<title>JQuery Terminal Emulator</title>
+<meta name="Description"
+	content="This is Certificate generation tool, You know what to do" />
+<script src="js/jquery-1.7.1.min.js"></script>
+<script src="js/jquery.mousewheel-min.js"></script>
+<script src="js/jquery.terminal-min.js"></script>
+<link href="css/jquery.terminal.css" rel="stylesheet" />
 
 <style>
 body {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
+
 .tilda {
-    position: absolute;
-    font-size: medium;
+	position: absolute;
+	font-size: medium;
 }
 </style>
 <!--[if IE]>
@@ -110,15 +112,13 @@ restapi = function(mystr,callback) {
   };
   
 downloadapi = function(url){ 
-	/* document.location = 'data:Application/octet-stream,' +
-    encodeURIComponent(this.resturl+'/'+'download'+'/'+ url); */
 	window.open(this.resturl+'/'+'download'+'/'+url);
 };  
 
 </script>
 </head>
 <body>
-    <div id="tilda"></div>
-   <!--  <h1>This is Certificate generation tool, You know what to do</h1> -->
+	<div id="tilda"></div>
+	<!--  <h1>This is Certificate generation tool, You know what to do</h1> -->
 </body>
 </html>

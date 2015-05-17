@@ -7,6 +7,7 @@
 	<version>2.0</version>
 	<name>Certificate</name>
 	<url>http://maven.apache.org</url>
+	
 
 
 	<properties>
@@ -41,11 +42,23 @@
 			<artifactId>servlet-api</artifactId>
 			<version>[${version.servlet-api}]</version>
 		</dependency>
+		<!-- <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.12</version>
+		</dependency> -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>[${version.jsp-api}]</version>
 		</dependency>
+		<!-- <dependency> <groupId>javax</groupId> <artifactId>javaee-api</artifactId> 
+			<version>6.0</version> </dependency> -->
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk15</artifactId>
@@ -92,6 +105,7 @@
 	</dependencies>
 
 	<build>
+	<finalName>Certificate</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

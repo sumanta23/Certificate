@@ -75,9 +75,6 @@ public class RootCAManager {
     List result = new ArrayList<RootCA>();
     try {
       tx = session.beginTransaction();
-      // Query query =
-      // session.createSQLQuery("select ID,FirstName,LastName,Marks from student_details");
-      // System.out.println(Student.class.getSimpleName());
       Query query = session.createQuery("from org.sumanta.bean.RootCA " + condition);
       result = query.list();
       tx.commit();
