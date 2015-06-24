@@ -4,27 +4,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ContentHolder {
-  private Map<String, byte[]> holder = new HashMap<>();
+    private Map<String, byte[]> holder = new HashMap<>();
 
-  static ContentHolder contentHolder;
+    static ContentHolder contentHolder;
 
-  private ContentHolder() {
+    private ContentHolder() {
 
-  }
-
-  public static ContentHolder getInstance() {
-    if (contentHolder == null) {
-      contentHolder = new ContentHolder();
     }
-    return contentHolder;
-  }
 
-  public Map<String, byte[]> getHolder() {
-    return holder;
-  }
+    public static ContentHolder getInstance() {
+        if (contentHolder == null) {
+            contentHolder = new ContentHolder();
+        }
+        return contentHolder;
+    }
 
-  public void setHolder(Map<String, byte[]> holder) {
-    this.holder = holder;
-  }
+    public Map<String, byte[]> getHolder() {
+        return holder;
+    }
+
+    public void setHolder(Map<String, byte[]> holder) {
+        this.holder = holder;
+    }
 
 }

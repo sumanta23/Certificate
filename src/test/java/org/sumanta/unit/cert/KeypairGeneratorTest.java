@@ -1,4 +1,4 @@
-package org.sumanta.cert;
+package org.sumanta.unit.cert;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,6 +13,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.sumanta.cert.KeyGenAlgo;
+import org.sumanta.cert.KeypairGenerator;
 
 @RunWith(MockitoJUnitRunner.class)
 public class KeypairGeneratorTest {

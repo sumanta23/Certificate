@@ -22,7 +22,7 @@ public class CSRGenerator {
    */
   public PKCS10CertificationRequest generateCSR(KeyPair pair, String cn) throws Exception {
    // logger.info("generating csr with signature algo SHA256withRSA and cn={}", cn);
-    return new PKCS10CertificationRequest("SHA256withRSA", new X500Principal("CN=" + cn), pair.getPublic(), null,
+    return new PKCS10CertificationRequest("SHA1withRSA", new X500Principal("CN=" + cn), pair.getPublic(), null,
             pair.getPrivate());
   }
 

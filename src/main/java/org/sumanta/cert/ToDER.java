@@ -11,20 +11,20 @@ import java.security.cert.X509Certificate;
  */
 public class ToDER {
 
-  /**
-   * @param cert
-   * @param filepath
-   */
-  private static void toDER(final X509Certificate cert, final String filepath) {
-    try {
-      FileOutputStream fos = new FileOutputStream(filepath);
-      final byte[] certBytes = cert.getEncoded();
-      fos.write(certBytes);
-      fos.close();
-    } catch (final IOException e) {
-      e.printStackTrace();
-    } catch (final CertificateEncodingException e) {
-      e.printStackTrace();
+    /**
+     * @param cert
+     * @param filepath
+     */
+    private static void toDER(final X509Certificate cert, final String filepath) {
+        try {
+            FileOutputStream fos = new FileOutputStream(filepath);
+            final byte[] certBytes = cert.getEncoded();
+            fos.write(certBytes);
+            fos.close();
+        } catch (final IOException e) {
+            e.printStackTrace();
+        } catch (final CertificateEncodingException e) {
+            e.printStackTrace();
+        }
     }
-  }
 }

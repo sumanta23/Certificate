@@ -5,6 +5,7 @@ import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.Security;
 import java.security.SignatureException;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
@@ -33,157 +34,152 @@ import org.bouncycastle.x509.extension.SubjectKeyIdentifierStructure;
  */
 public class IssueCertificate {
 
-  private KeyPair issuedKeyPair;
-  private KeyPair caKeyPair;
-  private X509Certificate caCertificate;
-
-  KeypairGenerator keypairGenerator = new KeypairGenerator();
-
-  CSRGenerator csrGenerator = new CSRGenerator();
-
-  /**
-   * Generates a v1 certificate - suitable for a CA with no usage restrictions
-   * 
-   * @param pair
-   *          A public/private KeyPair to use for signing the CA certificate
-   * @return A valid v1 X.509 certificate
-   * @throws InvalidKeyException
-   * @throws NoSuchProviderException
-   * @throws SignatureException
-   * @throws NoSuchAlgorithmException
-   * @throws CertificateEncodingException
-   */
-  public X509Certificate issueV1Certificate(KeyPair pair, String commonName, double days) throws InvalidKeyException,
-          NoSuchProviderException, SignatureException, NoSuchAlgorithmException, CertificateEncodingException {
-
-    X509V1CertificateGenerator certGen = new X509V1CertificateGenerator();
-
-    certGen.setSerialNumber(BigInteger.valueOf(System.currentTimeMillis()));
-    certGen.setIssuerDN(new X500Principal("CN=" + commonName));
-    certGen.setNotBefore(new Date(System.currentTimeMillis() - 10000));
-    certGen.setNotAfter(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24) * (long) days));
-    certGen.setSubjectDN(new X500Principal("CN=" + commonName));
-    certGen.setPublicKey(pair.getPublic());
-    certGen.setSignatureAlgorithm("SHA256WithRSAEncryption");
-
-    return certGen.generate(pair.getPrivate(), "BC");
-
-  }
-
-  /**
-   * Generates an SSL certificate
-   * 
-   * @param cn
-   *          Common name for certificate (eg: blah.mydomain.com)
-   * @param days
-   *          Number of days the certificate should be valid for
-   * @param purposeId
-   *          A {@link KeyPurposeId} that defines what the certificate can be
-   *          used for
-   * @return
-   * @throws Exception
-   */
-  @SuppressWarnings("deprecation")
-  public X509Certificate issueV3Certificate(KeyPair keypair, String cn, int days, String signatureAlgorithm,
-          KeyPurposeId purposeId) throws Exception {
-
-    if (keypair != null) {
-      this.issuedKeyPair = keypair;
-    } else {
-      this.issuedKeyPair = keypairGenerator.generateRSAKeyPair();
+    static {
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
     }
 
-    PKCS10CertificationRequest request = csrGenerator.generateCSR(issuedKeyPair, cn);
+    private KeyPair issuedKeyPair;
+    private KeyPair caKeyPair;
+    private X509Certificate caCertificate;
 
-    X509V3CertificateGenerator certGen = new X509V3CertificateGenerator();
+    KeypairGenerator keypairGenerator = new KeypairGenerator();
 
-    certGen.setSerialNumber(BigInteger.valueOf(System.currentTimeMillis()));
-    certGen.setIssuerDN(caCertificate.getSubjectX500Principal());
-    certGen.setNotBefore(new Date(System.currentTimeMillis()));
-    certGen.setNotAfter(new Date(System.currentTimeMillis() + (1000L * 60 * 60 * 24 * days)));
-    certGen.setSubjectDN(request.getCertificationRequestInfo().getSubject());
-    certGen.setPublicKey(request.getPublicKey("BC"));
-    certGen.setSignatureAlgorithm(signatureAlgorithm);
+    CSRGenerator csrGenerator = new CSRGenerator();
 
-    certGen.addExtension(X509Extensions.AuthorityKeyIdentifier, false, new AuthorityKeyIdentifierStructure(
-            caCertificate));
-    certGen.addExtension(X509Extensions.SubjectKeyIdentifier, false,
-            new SubjectKeyIdentifierStructure(request.getPublicKey("BC")));
-    certGen.addExtension(X509Extensions.BasicConstraints, true, new BasicConstraints(false));
-    certGen.addExtension(X509Extensions.KeyUsage, true, new KeyUsage(KeyUsage.digitalSignature
-            | KeyUsage.keyEncipherment));
-    certGen.addExtension(X509Extensions.ExtendedKeyUsage, true, new ExtendedKeyUsage(purposeId));
+    /**
+     * Generates a v1 certificate - suitable for a CA with no usage restrictions
+     * 
+     * @param pair
+     *            A public/private KeyPair to use for signing the CA certificate
+     * @return A valid v1 X.509 certificate
+     * @throws InvalidKeyException
+     * @throws NoSuchProviderException
+     * @throws SignatureException
+     * @throws NoSuchAlgorithmException
+     * @throws CertificateEncodingException
+     */
+    public X509Certificate issueV1Certificate(KeyPair pair, String commonName, double days) throws InvalidKeyException, NoSuchProviderException, SignatureException, NoSuchAlgorithmException,
+            CertificateEncodingException {
 
-    ASN1Set attributes = request.getCertificationRequestInfo().getAttributes();
+        X509V1CertificateGenerator certGen = new X509V1CertificateGenerator();
 
-    if (attributes != null) {
-      for (int i = 0; i != attributes.size(); i++) {
-        org.bouncycastle.asn1.pkcs.Attribute attr = org.bouncycastle.asn1.pkcs.Attribute.getInstance(attributes
-                .getObjectAt(i));
+        certGen.setSerialNumber(BigInteger.valueOf(System.currentTimeMillis()));
+        certGen.setIssuerDN(new X500Principal("CN=" + commonName));
+        certGen.setNotBefore(new Date(System.currentTimeMillis() - 10000));
+        certGen.setNotAfter(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24) * (long) days));
+        certGen.setSubjectDN(new X500Principal("CN=" + commonName));
+        certGen.setPublicKey(pair.getPublic());
+        certGen.setSignatureAlgorithm("SHA256WithRSAEncryption");
 
-        X509Extensions extensions;
-        if (attr.getAttrType().equals(extensions = X509Extensions.getInstance(attr.getAttrValues().getObjectAt(0))))
-          ;
+        return certGen.generate(pair.getPrivate(), "BC");
 
-        Enumeration e = extensions.oids();
-        while (e.hasMoreElements()) {
-          DERObjectIdentifier oid = (DERObjectIdentifier) e.nextElement();
-          final X509Extension ext = extensions.getExtension(oid);
+    }
 
-          certGen.addExtension(oid, ext.isCritical(), ext.getValue().getOctets());
+    /**
+     * Generates an SSL certificate
+     * 
+     * @param cn
+     *            Common name for certificate (eg: blah.mydomain.com)
+     * @param days
+     *            Number of days the certificate should be valid for
+     * @param purposeId
+     *            A {@link KeyPurposeId} that defines what the certificate can be used for
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("deprecation")
+    public X509Certificate issueV3Certificate(X509Certificate caCertificate, KeyPair rootKeyPair, KeyPair keypair, String cn, int days, String signatureAlgorithm, KeyPurposeId purposeId)
+            throws Exception {
+
+        if (keypair != null) {
+            this.issuedKeyPair = keypair;
+        } else {
+            this.issuedKeyPair = keypairGenerator.generateRSAKeyPair();
         }
-      }
-    }
 
-    final X509Certificate issuedCertificate = certGen.generate(caKeyPair.getPrivate());
+        PKCS10CertificationRequest request = csrGenerator.generateCSR(issuedKeyPair, cn);
 
-    return issuedCertificate;
-  }
+        X509V3CertificateGenerator certGen = new X509V3CertificateGenerator();
 
-  @SuppressWarnings("deprecation")
-  public X509Certificate signCSR(PKCS10CertificationRequest cr, int days, KeyPurposeId purposeId) throws Exception {
-    this.issuedKeyPair = keypairGenerator.generateRSAKeyPair();
+        certGen.setSerialNumber(BigInteger.valueOf(System.currentTimeMillis()));
+        certGen.setIssuerDN(caCertificate.getSubjectX500Principal());
+        certGen.setNotBefore(new Date(System.currentTimeMillis()));
+        certGen.setNotAfter(new Date(System.currentTimeMillis() + (1000L * 60 * 60 * 24 * days)));
+        certGen.setSubjectDN(request.getCertificationRequestInfo().getSubject());
+        certGen.setPublicKey(issuedKeyPair.getPublic());
+        certGen.setSignatureAlgorithm(signatureAlgorithm);
 
-    X509V3CertificateGenerator certGen = new X509V3CertificateGenerator();
+        certGen.addExtension(X509Extensions.AuthorityKeyIdentifier, false, new AuthorityKeyIdentifierStructure(caCertificate));
+        certGen.addExtension(X509Extensions.SubjectKeyIdentifier, false, new SubjectKeyIdentifierStructure(request.getPublicKey("BC")));
+        certGen.addExtension(X509Extensions.BasicConstraints, true, new BasicConstraints(false));
+        certGen.addExtension(X509Extensions.KeyUsage, true, new KeyUsage(KeyUsage.digitalSignature | KeyUsage.keyEncipherment));
+        certGen.addExtension(X509Extensions.ExtendedKeyUsage, true, new ExtendedKeyUsage(purposeId));
 
-    certGen.setSerialNumber(BigInteger.valueOf(System.currentTimeMillis()));
-    certGen.setIssuerDN(caCertificate.getSubjectX500Principal());
-    certGen.setNotBefore(new Date(System.currentTimeMillis()));
-    certGen.setNotAfter(new Date(System.currentTimeMillis() + (1000L * 60 * 60 * 24 * days)));
-    certGen.setSubjectDN(cr.getCertificationRequestInfo().getSubject());
-    certGen.setPublicKey(cr.getPublicKey("BC"));
-    certGen.setSignatureAlgorithm("SHA256WithRSAEncryption");
+        ASN1Set attributes = request.getCertificationRequestInfo().getAttributes();
 
-    certGen.addExtension(X509Extensions.AuthorityKeyIdentifier, false, new AuthorityKeyIdentifierStructure(
-            caCertificate));
-    certGen.addExtension(X509Extensions.SubjectKeyIdentifier, false,
-            new SubjectKeyIdentifierStructure(cr.getPublicKey("BC")));
-    certGen.addExtension(X509Extensions.BasicConstraints, true, new BasicConstraints(false));
-    certGen.addExtension(X509Extensions.KeyUsage, true, new KeyUsage(KeyUsage.digitalSignature
-            | KeyUsage.keyEncipherment));
-    certGen.addExtension(X509Extensions.ExtendedKeyUsage, true, new ExtendedKeyUsage(purposeId));
+        if (attributes != null) {
+            for (int i = 0; i != attributes.size(); i++) {
+                org.bouncycastle.asn1.pkcs.Attribute attr = org.bouncycastle.asn1.pkcs.Attribute.getInstance(attributes.getObjectAt(i));
 
-    ASN1Set attributes = cr.getCertificationRequestInfo().getAttributes();
+                X509Extensions extensions;
+                if (attr.getAttrType().equals(extensions = X509Extensions.getInstance(attr.getAttrValues().getObjectAt(0))))
+                    ;
 
-    if (attributes != null) {
-      for (int i = 0; i != attributes.size(); i++) {
-        org.bouncycastle.asn1.pkcs.Attribute attr = org.bouncycastle.asn1.pkcs.Attribute.getInstance(attributes
-                .getObjectAt(i));
-        X509Extensions extensions;
-        if (attr.getAttrType().equals(extensions = X509Extensions.getInstance(attr.getAttrValues().getObjectAt(0))))
-          ;
+                Enumeration e = extensions.oids();
+                while (e.hasMoreElements()) {
+                    DERObjectIdentifier oid = (DERObjectIdentifier) e.nextElement();
+                    final X509Extension ext = extensions.getExtension(oid);
 
-        Enumeration e = extensions.oids();
-        while (e.hasMoreElements()) {
-          DERObjectIdentifier oid = (DERObjectIdentifier) e.nextElement();
-          X509Extension ext = extensions.getExtension(oid);
-
-          certGen.addExtension(oid, ext.isCritical(), ext.getValue().getOctets());
+                    certGen.addExtension(oid, ext.isCritical(), ext.getValue().getOctets());
+                }
+            }
         }
-      }
+
+        final X509Certificate issuedCertificate = certGen.generate(rootKeyPair.getPrivate());
+
+        return issuedCertificate;
     }
 
-    return certGen.generate(caKeyPair.getPrivate());
-  }
+    @SuppressWarnings("deprecation")
+    public X509Certificate signCSR(PKCS10CertificationRequest cr, int days, KeyPurposeId purposeId) throws Exception {
+        this.issuedKeyPair = keypairGenerator.generateRSAKeyPair();
+
+        X509V3CertificateGenerator certGen = new X509V3CertificateGenerator();
+
+        certGen.setSerialNumber(BigInteger.valueOf(System.currentTimeMillis()));
+        certGen.setIssuerDN(caCertificate.getSubjectX500Principal());
+        certGen.setNotBefore(new Date(System.currentTimeMillis()));
+        certGen.setNotAfter(new Date(System.currentTimeMillis() + (1000L * 60 * 60 * 24 * days)));
+        certGen.setSubjectDN(cr.getCertificationRequestInfo().getSubject());
+        certGen.setPublicKey(cr.getPublicKey("BC"));
+        certGen.setSignatureAlgorithm("SHA256WithRSAEncryption");
+
+        certGen.addExtension(X509Extensions.AuthorityKeyIdentifier, false, new AuthorityKeyIdentifierStructure(caCertificate));
+        certGen.addExtension(X509Extensions.SubjectKeyIdentifier, false, new SubjectKeyIdentifierStructure(cr.getPublicKey("BC")));
+        certGen.addExtension(X509Extensions.BasicConstraints, true, new BasicConstraints(false));
+        certGen.addExtension(X509Extensions.KeyUsage, true, new KeyUsage(KeyUsage.digitalSignature | KeyUsage.keyEncipherment));
+        certGen.addExtension(X509Extensions.ExtendedKeyUsage, true, new ExtendedKeyUsage(purposeId));
+
+        ASN1Set attributes = cr.getCertificationRequestInfo().getAttributes();
+
+        if (attributes != null) {
+            for (int i = 0; i != attributes.size(); i++) {
+                org.bouncycastle.asn1.pkcs.Attribute attr = org.bouncycastle.asn1.pkcs.Attribute.getInstance(attributes.getObjectAt(i));
+                X509Extensions extensions;
+                if (attr.getAttrType().equals(extensions = X509Extensions.getInstance(attr.getAttrValues().getObjectAt(0))))
+                    ;
+
+                Enumeration e = extensions.oids();
+                while (e.hasMoreElements()) {
+                    DERObjectIdentifier oid = (DERObjectIdentifier) e.nextElement();
+                    X509Extension ext = extensions.getExtension(oid);
+
+                    certGen.addExtension(oid, ext.isCritical(), ext.getValue().getOctets());
+                }
+            }
+        }
+
+        return certGen.generate(caKeyPair.getPrivate());
+    }
 
 }

@@ -1,4 +1,4 @@
-package org.sumanta.cert;
+package org.sumanta.unit.cert;
 
 import static org.junit.Assert.*;
 
@@ -16,6 +16,8 @@ import javax.security.cert.CertificateException;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.sumanta.cert.IssueCertificate;
+import org.sumanta.cert.ToPEM;
 
 public class ToPEMTest {
 

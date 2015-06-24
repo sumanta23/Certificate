@@ -1,4 +1,4 @@
-package org.sumanta.cert;
+package org.sumanta.unit.cert;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,6 +15,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.sumanta.cert.CSRGenerator;
+import org.sumanta.cert.KeypairGenerator;
+import org.sumanta.cert.SignatureAlgo;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CSRGeneratorTest {
