@@ -27,10 +27,10 @@ public class ToPEM {
      * @throws CertificateException
      * @throws IOException
      */
-    public X509Certificate convertToX509Certificate(String pem) throws CertificateException, IOException {
+    public X509Certificate convertToX509Certificate(final String pem) throws CertificateException, IOException {
         X509Certificate cert = null;
-        StringReader reader = new StringReader(pem);
-        PEMReader pr = new PEMReader(reader);
+        final StringReader reader = new StringReader(pem);
+        final PEMReader pr = new PEMReader(reader);
         cert = (X509Certificate) pr.readObject();
         return cert;
     }

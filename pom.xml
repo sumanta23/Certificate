@@ -387,7 +387,7 @@
 				<version>${version.maven-pmd}</version>
 				<configuration>
 					<rulesets>
-						<ruleset>${user.home}/.m2/pmdrules.xml</ruleset>
+						<ruleset>/opt/sw/mvnrepo/pmdrules.xml</ruleset>
 					</rulesets>
 				</configuration>
 			</plugin>

@@ -26,7 +26,7 @@ public class ToP12 {
     public static void toP12withPrivateKey(final String alias, final String keystorepassword, final Certificate[] certchain, final PrivateKey privateKey, final String filename)
             throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
         try {
-            KeyStore outStore = KeyStore.getInstance("PKCS12");
+            final KeyStore outStore = KeyStore.getInstance("PKCS12");
             outStore.load(null, keystorepassword.toCharArray());
             outStore.setKeyEntry(alias, privateKey, keystorepassword.toCharArray(), certchain);
             final OutputStream outputStream = new FileOutputStream(filename);

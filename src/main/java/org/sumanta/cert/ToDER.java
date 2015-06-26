@@ -17,7 +17,7 @@ public class ToDER {
      */
     private static void toDER(final X509Certificate cert, final String filepath) {
         try {
-            FileOutputStream fos = new FileOutputStream(filepath);
+            final FileOutputStream fos = new FileOutputStream(filepath);
             final byte[] certBytes = cert.getEncoded();
             fos.write(certBytes);
             fos.close();

@@ -10,13 +10,13 @@
 		<property name="log4j.logger.org.hibernate">Level.OFF</property>
 
 
-		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
-		<property name="hibernate.connection.username">postgres</property>
-		<property name="hibernate.connection.password">admin</property>
+		<property name="hibernate.connection.driver_class">org.h2.Driver</property>
+		<property name="hibernate.connection.url">jdbc:h2:tcp://localhost:9092/SB</property>
+		<property name="hibernate.connection.username">SB</property>
+		<property name="hibernate.connection.password">SB</property>
 
 		<!-- SQL dialect -->
-		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
 
 
 		<!-- Database connection settings <property name="connection.driver_class">com.mysql.jdbc.Driver</property> 

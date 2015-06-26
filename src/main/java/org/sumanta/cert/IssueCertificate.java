@@ -58,10 +58,10 @@ public class IssueCertificate {
      * @throws NoSuchAlgorithmException
      * @throws CertificateEncodingException
      */
-    public X509Certificate issueV1Certificate(KeyPair pair, String commonName, double days) throws InvalidKeyException, NoSuchProviderException, SignatureException, NoSuchAlgorithmException,
-            CertificateEncodingException {
+    public X509Certificate issueV1Certificate(final KeyPair pair, final String commonName, final double days) throws InvalidKeyException, NoSuchProviderException, SignatureException,
+            NoSuchAlgorithmException, CertificateEncodingException {
 
-        X509V1CertificateGenerator certGen = new X509V1CertificateGenerator();
+        final X509V1CertificateGenerator certGen = new X509V1CertificateGenerator();
 
         certGen.setSerialNumber(BigInteger.valueOf(System.currentTimeMillis()));
         certGen.setIssuerDN(new X500Principal("CN=" + commonName));
@@ -88,8 +88,8 @@ public class IssueCertificate {
      * @throws Exception
      */
     @SuppressWarnings("deprecation")
-    public X509Certificate issueV3Certificate(X509Certificate caCertificate, KeyPair rootKeyPair, KeyPair keypair, String cn, int days, String signatureAlgorithm, KeyPurposeId purposeId)
-            throws Exception {
+    public X509Certificate issueV3Certificate(final X509Certificate caCertificate, final KeyPair rootKeyPair, final KeyPair keypair, final String cn, final int days, final String signatureAlgorithm,
+            final KeyPurposeId purposeId) throws Exception {
 
         if (keypair != null) {
             this.issuedKeyPair = keypair;
@@ -97,9 +97,9 @@ public class IssueCertificate {
             this.issuedKeyPair = keypairGenerator.generateRSAKeyPair();
         }
 
-        PKCS10CertificationRequest request = csrGenerator.generateCSR(issuedKeyPair, cn);
+        final PKCS10CertificationRequest request = csrGenerator.generateCSR(issuedKeyPair, cn);
 
-        X509V3CertificateGenerator certGen = new X509V3CertificateGenerator();
+        final X509V3CertificateGenerator certGen = new X509V3CertificateGenerator();
 
         certGen.setSerialNumber(BigInteger.valueOf(System.currentTimeMillis()));
         certGen.setIssuerDN(caCertificate.getSubjectX500Principal());
@@ -115,19 +115,19 @@ public class IssueCertificate {
         certGen.addExtension(X509Extensions.KeyUsage, true, new KeyUsage(KeyUsage.digitalSignature | KeyUsage.keyEncipherment));
         certGen.addExtension(X509Extensions.ExtendedKeyUsage, true, new ExtendedKeyUsage(purposeId));
 
-        ASN1Set attributes = request.getCertificationRequestInfo().getAttributes();
+        final ASN1Set attributes = request.getCertificationRequestInfo().getAttributes();
 
         if (attributes != null) {
             for (int i = 0; i != attributes.size(); i++) {
-                org.bouncycastle.asn1.pkcs.Attribute attr = org.bouncycastle.asn1.pkcs.Attribute.getInstance(attributes.getObjectAt(i));
+                final org.bouncycastle.asn1.pkcs.Attribute attr = org.bouncycastle.asn1.pkcs.Attribute.getInstance(attributes.getObjectAt(i));
 
                 X509Extensions extensions;
                 if (attr.getAttrType().equals(extensions = X509Extensions.getInstance(attr.getAttrValues().getObjectAt(0))))
                     ;
 
-                Enumeration e = extensions.oids();
+                final Enumeration e = extensions.oids();
                 while (e.hasMoreElements()) {
-                    DERObjectIdentifier oid = (DERObjectIdentifier) e.nextElement();
+                    final DERObjectIdentifier oid = (DERObjectIdentifier) e.nextElement();
                     final X509Extension ext = extensions.getExtension(oid);
 
                     certGen.addExtension(oid, ext.isCritical(), ext.getValue().getOctets());
@@ -141,10 +141,10 @@ public class IssueCertificate {
     }
 
     @SuppressWarnings("deprecation")
-    public X509Certificate signCSR(PKCS10CertificationRequest cr, int days, KeyPurposeId purposeId) throws Exception {
+    public X509Certificate signCSR(final PKCS10CertificationRequest cr, final int days, final KeyPurposeId purposeId) throws Exception {
         this.issuedKeyPair = keypairGenerator.generateRSAKeyPair();
 
-        X509V3CertificateGenerator certGen = new X509V3CertificateGenerator();
+        final X509V3CertificateGenerator certGen = new X509V3CertificateGenerator();
 
         certGen.setSerialNumber(BigInteger.valueOf(System.currentTimeMillis()));
         certGen.setIssuerDN(caCertificate.getSubjectX500Principal());
@@ -160,19 +160,19 @@ public class IssueCertificate {
         certGen.addExtension(X509Extensions.KeyUsage, true, new KeyUsage(KeyUsage.digitalSignature | KeyUsage.keyEncipherment));
         certGen.addExtension(X509Extensions.ExtendedKeyUsage, true, new ExtendedKeyUsage(purposeId));
 
-        ASN1Set attributes = cr.getCertificationRequestInfo().getAttributes();
+        final ASN1Set attributes = cr.getCertificationRequestInfo().getAttributes();
 
         if (attributes != null) {
             for (int i = 0; i != attributes.size(); i++) {
-                org.bouncycastle.asn1.pkcs.Attribute attr = org.bouncycastle.asn1.pkcs.Attribute.getInstance(attributes.getObjectAt(i));
+                final org.bouncycastle.asn1.pkcs.Attribute attr = org.bouncycastle.asn1.pkcs.Attribute.getInstance(attributes.getObjectAt(i));
                 X509Extensions extensions;
                 if (attr.getAttrType().equals(extensions = X509Extensions.getInstance(attr.getAttrValues().getObjectAt(0))))
                     ;
 
                 Enumeration e = extensions.oids();
                 while (e.hasMoreElements()) {
-                    DERObjectIdentifier oid = (DERObjectIdentifier) e.nextElement();
-                    X509Extension ext = extensions.getExtension(oid);
+                    final DERObjectIdentifier oid = (DERObjectIdentifier) e.nextElement();
+                    final X509Extension ext = extensions.getExtension(oid);
 
                     certGen.addExtension(oid, ext.isCritical(), ext.getValue().getOctets());
                 }

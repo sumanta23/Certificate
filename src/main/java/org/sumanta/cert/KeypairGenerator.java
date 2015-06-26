@@ -22,9 +22,9 @@ public class KeypairGenerator {
      * @throws NoSuchProviderException
      * @throws NoSuchAlgorithmException
      */
-    public KeyPair generateRSAKeyPairWithSize(int keysize) throws NoSuchProviderException, NoSuchAlgorithmException {
+    public KeyPair generateRSAKeyPairWithSize(final int keysize) throws NoSuchProviderException, NoSuchAlgorithmException {
         // logger.info("keypair generate with Signature algo RSA(default) keysize:{}", keysize);
-        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA", "BC");
+        final KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA", "BC");
         kpGen.initialize(keysize, new SecureRandom());
         return kpGen.generateKeyPair();
     }
@@ -38,14 +38,14 @@ public class KeypairGenerator {
      */
     public KeyPair generateRSAKeyPair() throws NoSuchProviderException, NoSuchAlgorithmException {
         // logger.info("keypair generate with Signature algo RSA(default) keysize:2048");
-        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA", "BC");
+        final KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA", "BC");
         kpGen.initialize(2048, new SecureRandom());
         return kpGen.generateKeyPair();
     }
 
-    public KeyPair generateRSAKeyPair(String signatureAlgo, int keysize) throws NoSuchProviderException, NoSuchAlgorithmException {
+    public KeyPair generateRSAKeyPair(final String signatureAlgo, final int keysize) throws NoSuchProviderException, NoSuchAlgorithmException {
         // logger.info("keypair generate with Signature algo RSA{} keysize:{}", signatureAlgo, keysize);
-        KeyPairGenerator kpGen = KeyPairGenerator.getInstance(signatureAlgo, "BC");
+        final KeyPairGenerator kpGen = KeyPairGenerator.getInstance(signatureAlgo, "BC");
         kpGen.initialize(keysize, new SecureRandom());
         return kpGen.generateKeyPair();
     }
@@ -61,9 +61,9 @@ public class KeypairGenerator {
      * @throws IOException
      */
     @Deprecated
-    public KeyPair generateKeyPairAndSaveToFile(String filename) throws NoSuchProviderException, NoSuchAlgorithmException, IOException {
+    public KeyPair generateKeyPairAndSaveToFile(final String filename) throws NoSuchProviderException, NoSuchAlgorithmException, IOException {
 
-        KeyPair keyPair = generateRSAKeyPair();
+        final KeyPair keyPair = generateRSAKeyPair();
 
         final Writer writer = new FileWriter(filename);
         final PEMWriter pemWriter = new PEMWriter(writer);

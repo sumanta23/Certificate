@@ -27,7 +27,7 @@ public class CertUtils {
      * @return Valid KeyPair or null
      * @throws IOException
      */
-    public KeyPair loadKeyPairFromFile(String filename) throws IOException {
+    public KeyPair loadKeyPairFromFile(final String filename) throws IOException {
 
         KeyPair keyPair = null;
 
@@ -45,13 +45,13 @@ public class CertUtils {
 
             reader.close();
             return keyPair;
-        } catch (FileNotFoundException e) {
+        } catch (final FileNotFoundException e) {
             return null;
         }
 
     }
 
-    public void saveKeypairToFile(KeyPair keyPair, String filename) throws IOException {
+    public void saveKeypairToFile(final KeyPair keyPair, final String filename) throws IOException {
         final Writer writer = new FileWriter(filename);
         final PEMWriter pemWriter = new PEMWriter(writer);
         pemWriter.writeObject(keyPair.getPrivate());
@@ -66,7 +66,7 @@ public class CertUtils {
      * @return Valid X509Certificate or null
      * @throws IOException
      */
-    public static X509Certificate loadCertificateFromFile(String filename) throws IOException {
+    public static X509Certificate loadCertificateFromFile(final String filename) throws IOException {
 
         X509Certificate cert = null;
 
@@ -83,7 +83,7 @@ public class CertUtils {
 
             reader.close();
             return cert;
-        } catch (FileNotFoundException e) {
+        } catch (final FileNotFoundException e) {
             return null;
         }
 
@@ -104,8 +104,8 @@ public class CertUtils {
      * @throws SignatureException
      * @throws IOException
      */
-    public void saveCertificateToFile(String filename, X509Certificate certificate) throws NoSuchAlgorithmException, CertificateEncodingException, NoSuchProviderException, InvalidKeyException,
-            SignatureException, IOException {
+    public void saveCertificateToFile(final String filename, final X509Certificate certificate) throws NoSuchAlgorithmException, CertificateEncodingException, NoSuchProviderException,
+            InvalidKeyException, SignatureException, IOException {
 
         final Writer writer = new FileWriter(filename);
         final PEMWriter pemWriter = new PEMWriter(writer);

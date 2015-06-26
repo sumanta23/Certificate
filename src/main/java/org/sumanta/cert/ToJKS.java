@@ -14,7 +14,7 @@ import java.security.cert.X509Certificate;
 
 public class ToJKS {
 
-    public static void toJKSTrustStore(Certificate cert, String password, String alias, String keystoreloc) {
+    public static void toJKSTrustStore(final Certificate cert, final String password, final String alias, final String keystoreloc) {
         try {
             final KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
             ks.load(null, password.toCharArray());
@@ -22,13 +22,13 @@ public class ToJKS {
             final OutputStream out = new FileOutputStream(new File(keystoreloc));
             ks.store(out, password.toCharArray());
             out.close();
-        } catch (KeyStoreException kse) {
+        } catch (final KeyStoreException kse) {
             kse.printStackTrace();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } catch (CertificateException e) {
+        } catch (final CertificateException e) {
             e.printStackTrace();
         }
     }
@@ -39,7 +39,7 @@ public class ToJKS {
      * @param keystoreloc
      *            does not need alias as common name will be used as alias name.
      */
-    public static void toJKSTrustStore(Certificate[] cert, String password, String keystoreloc) {
+    public static void toJKSTrustStore(final Certificate[] cert, final String password, final String keystoreloc) {
         try {
             final KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
             ks.load(null, password.toCharArray());
@@ -51,18 +51,18 @@ public class ToJKS {
             final OutputStream out = new FileOutputStream(new File(keystoreloc));
             ks.store(out, password.toCharArray());
             out.close();
-        } catch (KeyStoreException kse) {
+        } catch (final KeyStoreException kse) {
             kse.printStackTrace();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } catch (CertificateException e) {
+        } catch (final CertificateException e) {
             e.printStackTrace();
         }
     }
 
-    public static void toJKSKeyStore(Certificate[] cert, PrivateKey pkey, String password, String alias, String keystoreloc) {
+    public static void toJKSKeyStore(final Certificate[] cert, final PrivateKey pkey, final String password, final String alias, final String keystoreloc) {
         try {
             final KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
             ks.load(null, password.toCharArray());
@@ -72,13 +72,13 @@ public class ToJKS {
             final OutputStream out = new FileOutputStream(new File(keystoreloc));
             ks.store(out, password.toCharArray());
             out.close();
-        } catch (KeyStoreException kse) {
+        } catch (final KeyStoreException kse) {
             kse.printStackTrace();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } catch (CertificateException e) {
+        } catch (final CertificateException e) {
             e.printStackTrace();
         }
     }
