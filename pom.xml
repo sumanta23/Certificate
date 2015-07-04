@@ -308,7 +308,7 @@
 
 
 		<profile>
-			<id>arq-jboss</id>
+			<id>jboss_managed_local</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>

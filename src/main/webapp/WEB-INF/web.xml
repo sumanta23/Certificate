@@ -10,7 +10,7 @@
   <!-- restful tomcat -->
   
   
-  <servlet>
+<!--   <servlet>
     <servlet-name>Certificate</servlet-name>
     <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class> 
     <init-param>
@@ -23,20 +23,20 @@
     <servlet-name>Certificate</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
-  
+   -->
   
   
   
   
   <!-- resteasy jboss -->
   
-<!--   <context-param> 
+  <context-param> 
   <param-name>resteasy.scan</param-name>
    <param-value>true</param-value> 
-	</context-param> -->
+	</context-param>
   
   
- <!--  <context-param>
+  <context-param>
 		<param-name>resteasy.servlet.mapping.prefix</param-name>
 		<param-value>/rest</param-value>
 	</context-param>
@@ -55,7 +55,7 @@
 		<servlet-name>resteasy-servlet</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
-   -->
+  
   
   
   

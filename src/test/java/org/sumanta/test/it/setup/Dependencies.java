@@ -14,6 +14,6 @@ public class Dependencies extends IntegrationTestDependencies {
 
   public static final String ORG_JBOSS___RESTEASY = "org.jboss.resteasy:resteasy-jaxrs";
 
-  public static final String WEB_CLI_WAR = "org.sumanta:certificate:war";
+  public static final String WEB_CLI_WAR = "org.sumanta:Certificate:war:2.0";
 
 }

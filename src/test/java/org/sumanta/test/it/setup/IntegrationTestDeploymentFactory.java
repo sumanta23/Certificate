@@ -54,11 +54,11 @@ public class IntegrationTestDeploymentFactory {
     final MavenDependencyResolver resolver = getMavenResolver();
     ear.addAsLibrary(createModuleArchive(testPackagesToAdd));
 
-    // (2) Libraries needed to perform some tests
+    /*// (2) Libraries needed to perform some tests
     ear.addAsLibraries(resolver.artifact(Dependencies.ORG_JBOSS_SHRINKWRAP_RESOLVER_JAR).resolveAsFiles());
     ear.addAsLibraries(resolver.artifact(Dependencies.ORG_APACHE_HTTPCOMP).resolveAsFiles());
     ear.addAsLibraries(resolver.artifact(Dependencies.ORG_APACHE_HTTPCORE).resolveAsFiles());
-    ear.addAsLibraries(resolver.artifact(Dependencies.ORG_APACHE_HTTPMIME).resolveAsFiles());
+    ear.addAsLibraries(resolver.artifact(Dependencies.ORG_APACHE_HTTPMIME).resolveAsFiles());*/
     ear.addAsLibraries(resolver.artifact(Dependencies.ORG_JBOSS___RESTEASY).resolveAsFiles());
 
     System.out.println("EAR content:" + ear.toString(true));

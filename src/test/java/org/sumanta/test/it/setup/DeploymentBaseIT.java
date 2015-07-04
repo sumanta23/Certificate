@@ -14,7 +14,7 @@ public class DeploymentBaseIT {
     return IntegrationTestDeploymentFactory.createEARDeploymentFromMavenCoordinates(Dependencies.WEB_CLI_WAR);
   }
 
-  @Deployment(testable = true, name = "certificate-test-ear")
+  @Deployment(testable = true, name = "certificate-test-war")
   public static Archive<?> createEarWithIntegrationTest() {
     final Set<Package> testPackages = new HashSet<Package>();
 
