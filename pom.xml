@@ -86,12 +86,7 @@
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>jsr311-api</artifactId>
-			<version>${version.jsr311-api}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>1.8</version>
+			<version>1.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -209,102 +204,30 @@
 
 
 	<profiles>
-		<!-- <profile>
-			<id>rpm</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>rpm-maven-plugin</artifactId>
-						<version>${version.rpm}</version>
-						<extensions>true</extensions>
-						<executions>
-							<execution>
-								<id>generate-rpm</id>
-								<goals>
-									<goal>rpm</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<group>Application/Collectors</group>
-							<sourceEncoding>UTF-8</sourceEncoding>
-							<name>${project.artifactId}</name>
-							<copyright>LGPL</copyright>
-							<release>12</release>
-							<mappings>
-								<mapping>
-									<directory>/opt/sw/certificate/lib</directory>
-									<filemode>750</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-									<sources>
-										<source>
-											<location>src/main/resources/hibernate.cfg.xml</location>
-										</source>
-									</sources>
-								</mapping>
-								<mapping>
-									<directory>/opt/sw/certificate/lib</directory>
-									<filemode>750</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-									<sources>
-										<source>
-											<location>target/lib</location>
-										</source>
-									</sources>
-								</mapping>
-								<mapping>
-									<directory>/opt/sw/certificate/lib</directory>
-									<filemode>750</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-									<dependency>
-										<includes>
-											<include>org.bouncycastle:bcprov-jdk15</include>
-										</includes>
-									</dependency>
-								</mapping>
-								<mapping>
-									<directory>/opt/sw/certificate/bin</directory>
-									<filemode>750</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-									<sources>
-										<source>
-											<location>src/main/resources/certAdmin</location>
-										</source>
-									</sources>
-								</mapping>
-								<mapping>
-									<directory>/opt/sw/certificate/lib</directory>
-									<filemode>750</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-									<sources>
-										<source>
-											<location>target</location>
-											<includes>
-												<include>${project.artifactId}-${project.version}.jar</include>
-											</includes>
-										</source>
-									</sources>
-								</mapping>
-								<mapping>
-									<directory>/usr/local/bin/</directory>
-									<sources>
-										<softlinkSource>
-											<location>/opt/sw/certificate/bin/certAdmin</location>
-										</softlinkSource>
-									</sources>
-								</mapping>
-							</mappings>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile> -->
+		<!-- <profile> <id>rpm</id> <build> <plugins> <plugin> <groupId>org.codehaus.mojo</groupId> 
+			<artifactId>rpm-maven-plugin</artifactId> <version>${version.rpm}</version> 
+			<extensions>true</extensions> <executions> <execution> <id>generate-rpm</id> 
+			<goals> <goal>rpm</goal> </goals> </execution> </executions> <configuration> 
+			<group>Application/Collectors</group> <sourceEncoding>UTF-8</sourceEncoding> 
+			<name>${project.artifactId}</name> <copyright>LGPL</copyright> <release>12</release> 
+			<mappings> <mapping> <directory>/opt/sw/certificate/lib</directory> <filemode>750</filemode> 
+			<username>root</username> <groupname>root</groupname> <sources> <source> 
+			<location>src/main/resources/hibernate.cfg.xml</location> </source> </sources> 
+			</mapping> <mapping> <directory>/opt/sw/certificate/lib</directory> <filemode>750</filemode> 
+			<username>root</username> <groupname>root</groupname> <sources> <source> 
+			<location>target/lib</location> </source> </sources> </mapping> <mapping> 
+			<directory>/opt/sw/certificate/lib</directory> <filemode>750</filemode> <username>root</username> 
+			<groupname>root</groupname> <dependency> <includes> <include>org.bouncycastle:bcprov-jdk15</include> 
+			</includes> </dependency> </mapping> <mapping> <directory>/opt/sw/certificate/bin</directory> 
+			<filemode>750</filemode> <username>root</username> <groupname>root</groupname> 
+			<sources> <source> <location>src/main/resources/certAdmin</location> </source> 
+			</sources> </mapping> <mapping> <directory>/opt/sw/certificate/lib</directory> 
+			<filemode>750</filemode> <username>root</username> <groupname>root</groupname> 
+			<sources> <source> <location>target</location> <includes> <include>${project.artifactId}-${project.version}.jar</include> 
+			</includes> </source> </sources> </mapping> <mapping> <directory>/usr/local/bin/</directory> 
+			<sources> <softlinkSource> <location>/opt/sw/certificate/bin/certAdmin</location> 
+			</softlinkSource> </sources> </mapping> </mappings> </configuration> </plugin> 
+			</plugins> </build> </profile> -->
 
 
 		<profile>

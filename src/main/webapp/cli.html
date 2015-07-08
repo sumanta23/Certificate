@@ -104,7 +104,8 @@ restapi = function(mystr,callback) {
     $.ajax({  
       type: 'POST',  
       url: this.resturl +'/'+'execute' +'/' + mystr,  
-      contentType: 'application/json',  
+      contentType: 'application/json', 
+      dataType: 'text',
       success: callback, 
       error: function(req, status, ex){alert(ex)},  
       timeout:60000  

@@ -2,18 +2,18 @@ package org.sumanta.test.it.setup;
 
 public class Dependencies extends IntegrationTestDependencies {
 
-  /**
-   * artifacts needed for this test
-   */
+    /**
+     * artifacts needed for this test
+     */
 
-  public static final String ORG_JBOSS_SHRINKWRAP_RESOLVER_JAR = "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven:jar";
+    public static final String ORG_JBOSS_SHRINKWRAP_RESOLVER_JAR = "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven:jar";
 
-  public static final String ORG_APACHE_HTTPCOMP = "org.apache.httpcomponents:httpclient-osgi:jar";
-  public static final String ORG_APACHE_HTTPCORE = "org.apache.httpcomponents:httpcore:jar";
-  public static final String ORG_APACHE_HTTPMIME = "org.apache.httpcomponents:httpmime:jar";
+    public static final String ORG_APACHE_HTTPCOMP = "org.apache.httpcomponents:httpclient-osgi:jar";
+    public static final String ORG_APACHE_HTTPCORE = "org.apache.httpcomponents:httpcore:jar";
+    public static final String ORG_APACHE_HTTPMIME = "org.apache.httpcomponents:httpmime:jar";
 
-  public static final String ORG_JBOSS___RESTEASY = "org.jboss.resteasy:resteasy-jaxrs";
+    public static final String ORG_JBOSS___RESTEASY = "org.jboss.resteasy:resteasy-jaxrs:jar:3.0.10.Final";
 
-  public static final String WEB_CLI_WAR = "org.sumanta:Certificate:war:2.0";
+    public static final String WEB_CLI_WAR = "org.sumanta:Certificate:war:2.0";
 
 }
