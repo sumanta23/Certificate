@@ -12,7 +12,7 @@ public class Dependencies extends IntegrationTestDependencies {
     public static final String ORG_APACHE_HTTPCORE = "org.apache.httpcomponents:httpcore:jar";
     public static final String ORG_APACHE_HTTPMIME = "org.apache.httpcomponents:httpmime:jar";
 
-    public static final String ORG_JBOSS___RESTEASY = "org.jboss.resteasy:resteasy-jaxrs:jar:3.0.10.Final";
+    public static final String ORG_JBOSS___RESTEASY = "org.jboss.resteasy:resteasy-jaxrs:jar";
 
     public static final String WEB_CLI_WAR = "org.sumanta:Certificate:war:2.0";
 

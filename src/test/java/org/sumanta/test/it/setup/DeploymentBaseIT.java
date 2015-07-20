@@ -9,12 +9,12 @@ import org.sumanta.test.it.ITutil;
 
 public class DeploymentBaseIT {
 
-  @Deployment(name = "certificate", testable = true)
+  @Deployment(name = "certificate-war", testable = true)
   public static Archive<?> createDeployablePKIWebCliEAR() {
     return IntegrationTestDeploymentFactory.createEARDeploymentFromMavenCoordinates(Dependencies.WEB_CLI_WAR);
   }
 
-  @Deployment(testable = true, name = "certificate-test-war")
+  @Deployment(testable = true, name = "certificate-test")
   public static Archive<?> createEarWithIntegrationTest() {
     final Set<Package> testPackages = new HashSet<Package>();
 
