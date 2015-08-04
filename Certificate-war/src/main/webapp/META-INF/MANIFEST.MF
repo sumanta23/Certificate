@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: cdi-api-1.2.jar javax.el-api-3.0.0.jar javax.interceptor-a
+ pi-1.2.jar javax.inject-1.jar servlet-api-2.5.jar slf4j-api-1.7.12.ja
+ r h2-1.4.187.jar jsp-api-2.2.jar bcprov-jdk15-1.46.jar jsr311-api-1.1
+ .1.jar
+
