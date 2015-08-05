@@ -4,6 +4,7 @@ import javax.ejb.Stateless;
 
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.persistence.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,9 +15,11 @@ import org.sumanta.test.it.setup.DeploymentBaseIT;
 public class WebCliTestIT extends DeploymentBaseIT {
 
     static String urlBase = "http://localhost:8080/Certificate/rest/certapi/execute/";
+    private static final String PU="java:jboss/datasources/postgres";
 
     @Test
     @OperateOnDeployment("certificate-test")
+    @DataSource(PU)
     public void testCreateRootCA() {
 
         ITutil iTutil = new ITutil();
@@ -28,6 +31,7 @@ public class WebCliTestIT extends DeploymentBaseIT {
 
     @Test
     @OperateOnDeployment("certificate-test")
+    @DataSource(PU)
     public void testListRootCA() {
 
         ITutil iTutil = new ITutil();

@@ -34,7 +34,7 @@
 		<version.jboss.as>7.1.1.Final</version.jboss.as>
 		<version.postgresql>9.3-1102-jdbc41</version.postgresql>
 		<version.jboss.javaee>1.0.0.Final</version.jboss.javaee>
-
+		<version.arquillian_persistence>1.0.0.Alpha7</version.arquillian_persistence> 
 		<version.slf4j>1.7.12</version.slf4j>
 
 		<jboss.home>target/jboss-as-${version.jboss.as}</jboss.home>

@@ -2,15 +2,12 @@ package org.sumanta.bean;
 
 import java.sql.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "CRL")
 public class CRL {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     int id;
     @Column(name = "serialno", nullable = false)
     String serialno;

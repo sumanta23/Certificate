@@ -99,7 +99,7 @@
         <subsystem xmlns="urn:jboss:domain:configadmin:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:1.0">
             <datasources>
-                <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
+                <datasource jndi-name="java:jboss/datasources/postgres" pool-name="postgres" enabled="true" use-java-context="true">
                     <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1</connection-url>
                     <driver>h2</driver>
                     <security>
@@ -107,7 +107,7 @@
                         <password>sa</password>
                     </security>
                 </datasource>
-                <xa-datasource jndi-name="java:jboss/datasources/postgres" pool-name="postgres" enabled="true" use-java-context="true" use-ccm="true">
+                <!-- <xa-datasource jndi-name="java:jboss/datasources/postgres" pool-name="postgres" enabled="true" use-java-context="true" use-ccm="true">
                     <xa-datasource-property name="ServerName">
                         localhost
                     </xa-datasource-property>
@@ -137,7 +137,7 @@
                         <prepared-statement-cache-size>0</prepared-statement-cache-size>
                         <share-prepared-statements>false</share-prepared-statements>
                     </statement>
-                </xa-datasource>
+                </xa-datasource> -->
                 <drivers>
                     <driver name="postgresql" module="org.postgres.jdbc.jboss.postgres-jboss-subsystem">
                         <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
