@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sumanta.test.it.setup.DeploymentBaseIT;
 
+import java.util.StringTokenizer;
+
 @RunWith(Arquillian.class)
 @Stateless
 public class WebCliTestIT extends DeploymentBaseIT {
@@ -38,6 +40,24 @@ public class WebCliTestIT extends DeploymentBaseIT {
         String result = iTutil.executeCommand(urlBase, "list rootca");
         System.out.println(result);
         Assert.assertTrue(result.contains("MYRootCA"));
+
+    }
+
+    
+    @Test
+    @OperateOnDeployment("certificate-test")
+    public void testExportRootCA() {
+
+        ITutil iTutil = new ITutil();
+        String fullResult = iTutil.executeCommand(urlBase, "list rootca");
+        StringTokenizer stringTokenizer=new StringTokenizer(fullResult,"\t");
+        stringTokenizer.nextElement();
+        stringTokenizer.nextElement();
+        String serial = (String)stringTokenizer.nextElement();
+      ITutil iTutilw = new ITutil();
+      String result = iTutilw.executeCommand(urlBase, "export rootca -serialno "+ serial+ " -filename d.crt -format crt");
+        System.out.println(result);
+        /*Assert.assertTrue(result.contains("MYRootCA"));*/
 
     }
 

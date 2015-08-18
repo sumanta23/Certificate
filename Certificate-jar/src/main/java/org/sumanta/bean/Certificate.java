@@ -10,7 +10,7 @@ public class Certificate {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "ID")
     int id;
-    @Column(name = "commonname", nullable = false)
+    @Column(name = "commonname", nullable = false, unique = true)
     String dn;
     @Column(name = "serialno", nullable = false)
     String serialno;

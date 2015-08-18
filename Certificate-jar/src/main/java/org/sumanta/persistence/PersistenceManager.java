@@ -38,7 +38,7 @@ public class PersistenceManager {
      * Returns entity manager.
      * 
      * @return the entityManager
-     */
+   */
     public EntityManager getEntityManager() {
         return entityManager;
     }
