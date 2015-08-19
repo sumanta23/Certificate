@@ -10,6 +10,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sumanta.test.it.setup.DeploymentBaseIT;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.cert.*;
 import java.util.StringTokenizer;
 
 @RunWith(Arquillian.class)
@@ -17,7 +20,8 @@ import java.util.StringTokenizer;
 public class WebCliTestIT extends DeploymentBaseIT {
 
     static String urlBase = "http://localhost:8080/Certificate/rest/certapi/execute/";
-    private static final String PU="java:jboss/datasources/postgres";
+    static String downloadUrl = "http://localhost:8080/Certificate/rest/certapi/download/";
+    private static final String PU = "java:jboss/datasources/postgres";
 
     @Test
     @OperateOnDeployment("certificate-test")
@@ -43,21 +47,31 @@ public class WebCliTestIT extends DeploymentBaseIT {
 
     }
 
-    
     @Test
     @OperateOnDeployment("certificate-test")
-    public void testExportRootCA() {
+    public void testExportRootCA() throws IOException, CertificateException {
 
         ITutil iTutil = new ITutil();
         String fullResult = iTutil.executeCommand(urlBase, "list rootca");
-        StringTokenizer stringTokenizer=new StringTokenizer(fullResult,"\t");
+        
+        StringTokenizer stringTokenizer = new StringTokenizer(fullResult, "\t");
         stringTokenizer.nextElement();
         stringTokenizer.nextElement();
-        String serial = (String)stringTokenizer.nextElement();
-      ITutil iTutilw = new ITutil();
-      String result = iTutilw.executeCommand(urlBase, "export rootca -serialno "+ serial+ " -filename d.crt -format crt");
+        String serial = (String) stringTokenizer.nextElement();
+
+        String result = iTutil.executeCommand(urlBase, "export -cat certificate rootca -serialno " + serial + " -filename d.crt -format crt");
         System.out.println(result);
-        /*Assert.assertTrue(result.contains("MYRootCA"));*/
+        
+        InputStream stream=iTutil.downloadCommand(downloadUrl + result);
+        
+        final CertificateFactory cf = CertificateFactory.getInstance("X.509");
+
+        while (stream.available() > 0) {
+                final Certificate cert = cf.generateCertificate(stream);
+                final String certificate = cert.toString();
+                System.out.println(certificate);
+        }
+        /* Assert.assertTrue(result.contains("MYRootCA")); */
 
     }
 

@@ -1,6 +1,7 @@
 package org.sumanta.test.it;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpClient;
@@ -48,6 +49,39 @@ public class ITutil {
             method.releaseConnection();
         }
         return responseString;
+    }
+
+    public InputStream downloadCommand(String downloadUrl) {
+
+        HttpClient client = new HttpClient();
+
+        InputStream responseStream = null;
+
+        // Create a method instance.
+        GetMethod method = new GetMethod(downloadUrl);
+
+        // Provide custom retry handler is necessary
+        method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
+
+        try {
+            // Execute the method.
+            int statusCode = client.executeMethod(method);
+
+            if (statusCode != HttpStatus.SC_OK) {
+                System.err.println("Method failed: " + method.getStatusLine());
+            }
+
+            // Read the response body.
+            responseStream = method.getResponseBodyAsStream();
+
+        } catch (IOException e) {
+            System.err.println("Fatal protocol violation: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            // Release the connection.
+            //method.releaseConnection();
+        }
+        return responseStream;
     }
 
 }
