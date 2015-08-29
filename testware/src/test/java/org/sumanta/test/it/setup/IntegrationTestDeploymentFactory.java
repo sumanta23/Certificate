@@ -77,6 +77,7 @@ public class IntegrationTestDeploymentFactory {
             archive.addPackage(p);
         }
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        archive.addAsResource("test-persistence.xml", "META-INF/persistence.xml");
         return archive;
     }
 
