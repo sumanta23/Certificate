@@ -14,7 +14,7 @@
 		<configuration>
 			<property name="jbossHome">target/jboss-as-7.1.1.Final</property>
 			<property name="serverConfig">standalone-full-sam.xml</property>
-			<property name="javaVmArguments">-Xmx1024m -XX:MaxPermSize=256m
+			<property name="javaVmArguments">-Xmx512m -XX:MaxPermSize=256m
 			-Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n
             </property>
 		</configuration>
