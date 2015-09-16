@@ -1,2 +1,2 @@
 language: java
-script: mvn clean install -P jboss_managed_local
+install: mvn clean install -P jboss_managed_local
