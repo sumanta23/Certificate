@@ -2,6 +2,7 @@ package org.sumanta.test.it;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.StringTokenizer;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpClient;
@@ -82,6 +83,16 @@ public class ITutil {
             //method.releaseConnection();
         }
         return responseStream;
+    }
+
+
+
+    public String fetchSerialNumber(final String fullResult){
+        StringTokenizer stringTokenizer = new StringTokenizer(fullResult, "\t");
+        stringTokenizer.nextElement();
+        stringTokenizer.nextElement();
+        String serial = (String) stringTokenizer.nextElement();
+        return serial;
     }
 
 }

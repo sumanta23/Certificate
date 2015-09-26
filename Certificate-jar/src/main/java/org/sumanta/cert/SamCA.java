@@ -315,7 +315,7 @@ public class SamCA {
              */
             Map<String, Object> att = new HashMap<String, Object>();
             att.put("serialno", serialNo);
-            List l = persistenceManager.findEntitiesByAttributes(org.sumanta.bean.Certificate.class, att);
+            List l = persistenceManager.findEntitiesByAttributes(org.sumanta.bean.CA.class, att);
             if (l.size() != 0) {
                 Iterator it = l.listIterator();
                 while (it.hasNext()) {
