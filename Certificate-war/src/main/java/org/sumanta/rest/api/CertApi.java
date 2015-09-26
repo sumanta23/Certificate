@@ -2,12 +2,8 @@ package org.sumanta.rest.api;
 
 import java.io.ByteArrayInputStream;
 
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ejb.EJB;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
@@ -16,7 +12,7 @@ import org.sumanta.cli.CertAdmin;
 @Path("/certapi")
 public class CertApi {
 
-    @Inject
+    @EJB
     CertAdmin certAdmin;
     
     @POST
