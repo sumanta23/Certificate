@@ -301,7 +301,7 @@
                             <arguments>
                                 <argument>install</argument>
                                 <argument>setuptools</argument>
-                                <argument>virtualenv</argument>
+                                
                             </arguments>
                         </configuration>
                     </execution>
