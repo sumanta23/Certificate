@@ -37,6 +37,10 @@
 		<version.arquillian_persistence>1.0.0.Alpha7</version.arquillian_persistence> 
 		<version.slf4j>1.7.12</version.slf4j>
 
+        <version.maven-exec-plugin>1.2</version.maven-exec-plugin>
+        <virtual.env.name>.v_env</virtual.env.name>
+        <scripting.python.path>python</scripting.python.path>
+
 		<jboss.home>target/jboss-as-${version.jboss.as}</jboss.home>
 		<jboss.modules.folder>${jboss.home}/modules/</jboss.modules.folder>
 
