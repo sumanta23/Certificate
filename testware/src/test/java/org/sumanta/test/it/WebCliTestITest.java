@@ -109,10 +109,35 @@ public class WebCliTestITest extends DeploymentBaseIT {
         PropertyHolder.getInstance().getPropertyHolder().put("subcaserial", serial);
 
     }
+    
+    
+    @Test
+    @InSequence(6)
+    @OperateOnDeployment("certificate-test")
+    @DataSource(PU)
+    public void testExportSubCA() throws IOException, CertificateException {
+        ITutil iTutil = new ITutil();
+        String serial=PropertyHolder.getInstance().getPropertyHolder().get("subcaserial");
+
+        String result = iTutil.executeCommand(urlBase, "export -cat certificate ca -serialno " + serial + " -filename d.crt -format crt");
+        System.out.println(result);
+        
+        InputStream stream=iTutil.downloadCommand(downloadUrl + result);
+        
+        final CertificateFactory cf = CertificateFactory.getInstance("X.509");
+
+        while (stream.available() > 0) {
+                final Certificate cert = cf.generateCertificate(stream);
+                final String certificate = cert.toString();
+                System.out.println(certificate);
+        }
+        /* Assert.assertTrue(result.contains("MYRootCA")); */
+
+    }
 
 
     @Test
-    @InSequence(6)
+    @InSequence(7)
     @OperateOnDeployment("certificate-test")
     @DataSource(PU)
     public void testCreateEntityCertificate() {
@@ -128,7 +153,7 @@ public class WebCliTestITest extends DeploymentBaseIT {
     }
 
     @Test
-    @InSequence(7)
+    @InSequence(8)
     @OperateOnDeployment("certificate-test")
     @DataSource(PU)
     public void testListXEndEntity() {
@@ -142,5 +167,30 @@ public class WebCliTestITest extends DeploymentBaseIT {
         PropertyHolder.getInstance().getPropertyHolder().put("entityserial", serial);
 
     }
+    
+    @Test
+    @InSequence(9)
+    @OperateOnDeployment("certificate-test")
+    @DataSource(PU)
+    public void testExportEntityCertificate() throws IOException, CertificateException {
+        ITutil iTutil = new ITutil();
+        String serial=PropertyHolder.getInstance().getPropertyHolder().get("entityserial");
+
+        String result = iTutil.executeCommand(urlBase, "export -cat certificate certificate -serialno " + serial + " -filename d.crt -format crt");
+        System.out.println(result);
+        
+        InputStream stream=iTutil.downloadCommand(downloadUrl + result);
+        
+        final CertificateFactory cf = CertificateFactory.getInstance("X.509");
+
+        while (stream.available() > 0) {
+                final Certificate cert = cf.generateCertificate(stream);
+                final String certificate = cert.toString();
+                System.out.println(certificate);
+        }
+        /* Assert.assertTrue(result.contains("MYRootCA")); */
+
+    }
+
 
 }
