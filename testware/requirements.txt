@@ -24,3 +24,4 @@ IPy==0.75
 PyYAML==3.10
 wheel==0.24.0
 pyOpenSSL
+pyMedia
