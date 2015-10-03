@@ -12,6 +12,8 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
+import org.sumanta.rest.config.ByteArrayStreamingOutput;
+
 public class ToJKS {
 
     public static void toJKSTrustStore(final Certificate cert, final String password, final String alias, final String keystoreloc) {
@@ -62,14 +64,23 @@ public class ToJKS {
         }
     }
 
-    public static void toJKSKeyStore(final Certificate[] cert, final PrivateKey pkey, final String password, final String alias, final String keystoreloc) {
+    public static File toJKSKeyStore(final Certificate[] cert, final PrivateKey pkey, final String password, final String alias, final String keystoreloc) throws IOException {
+    	
+    	 // Create temp file.
+        File temp = File.createTempFile("keystoreloc", ".jks");
+
+        // Delete temp file when program exits.
+        temp.deleteOnExit();
+        
         try {
             final KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
             ks.load(null, password.toCharArray());
 
             ks.setKeyEntry(alias, pkey, password.toCharArray(), cert);
 
-            final OutputStream out = new FileOutputStream(new File(keystoreloc));
+           
+            
+            final OutputStream out = new FileOutputStream(temp);
             ks.store(out, password.toCharArray());
             out.close();
         } catch (final KeyStoreException kse) {
@@ -81,6 +92,7 @@ public class ToJKS {
         } catch (final CertificateException e) {
             e.printStackTrace();
         }
+        return temp;
     }
 
 }

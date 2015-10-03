@@ -1,7 +1,10 @@
 package org.sumanta.cert;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
@@ -26,6 +29,7 @@ import org.sumanta.cli.Category;
 import org.sumanta.cli.Format;
 import org.sumanta.cli.Type;
 import org.sumanta.persistence.PersistenceManager;
+import org.sumanta.rest.api.Content;
 import org.sumanta.rest.api.ContentHolder;
 import org.sumanta.to.ToJKS;
 import org.sumanta.to.ToP12;
@@ -221,7 +225,8 @@ public class SamCA {
                 if (Format.p12 == format) {
                     ToP12.toP12withPrivateKey("key", "secret", certificate, key.getPrivate(), "key.p12");
                 } else {
-                    ToJKS.toJKSKeyStore(certificate, key.getPrivate(), "secret", "key", file);
+                    File f=ToJKS.toJKSKeyStore(certificate, key.getPrivate(), "secret", "key", file);
+                    fileid=saveFileToFileHolder(f, file);
                 }
             } else if (Category.truststore == cat) {
                 if (Format.jks == format) {
@@ -231,7 +236,7 @@ public class SamCA {
                 // SamCA.exportCertificateChain(cert.getSerialNumber().toString()),
                 // key.getPrivate(), "key.p12");
             } else if (Category.certificate == cat) {
-                fileid = saveCertificateToFile(cert, file);
+                fileid = saveCertificateToFileHolder(cert, file);
             }
 
         } catch (Exception e) {
@@ -239,6 +244,8 @@ public class SamCA {
         }
         return fileid;
     }
+
+    
 
     /**
      * @param certificate
@@ -250,13 +257,47 @@ public class SamCA {
      * @throws SignatureException
      * @throws IOException
      */
-    public String saveCertificateToFile(Certificate certificate, String name) throws NoSuchAlgorithmException, CertificateEncodingException, NoSuchProviderException, InvalidKeyException,
+    public String saveFileToFileHolder(File certificate, String name) throws NoSuchAlgorithmException, CertificateEncodingException, NoSuchProviderException, InvalidKeyException,
+            SignatureException, IOException {
+        String key = "http" + System.currentTimeMillis();
+        Map<String, Content> holder = ContentHolder.getInstance().getHolder();
+        
+        byte[] f = Serializer.serialize(certificate);
+        
+        FileInputStream fileInputStream=null;
+        byte[] bFile = new byte[(int) certificate.length()];
+        
+        try {
+            //convert file into array of bytes
+	    fileInputStream = new FileInputStream(certificate);
+	    fileInputStream.read(bFile);
+	    fileInputStream.close();
+        }catch(Exception e){}
+        
+        Content content=new Content("jks",bFile);
+        holder.put(key, content);
+        return key;
+    }
+    
+    
+    /**
+     * @param certificate
+     * @param name
+     * @throws NoSuchAlgorithmException
+     * @throws CertificateEncodingException
+     * @throws NoSuchProviderException
+     * @throws InvalidKeyException
+     * @throws SignatureException
+     * @throws IOException
+     */
+    public String saveCertificateToFileHolder(Certificate certificate, String name) throws NoSuchAlgorithmException, CertificateEncodingException, NoSuchProviderException, InvalidKeyException,
             SignatureException, IOException {
         System.out.println(certificate.getEncoded().toString());
         String key = "http" + System.currentTimeMillis();
-        Map<String, byte[]> holder = ContentHolder.getInstance().getHolder();
+        Map<String, Content> holder = ContentHolder.getInstance().getHolder();
         byte[] f = certificate.getEncoded();
-        holder.put(key, f);
+        Content content=new Content("crt",f);
+        holder.put(key, content);
         return key;
     }
 

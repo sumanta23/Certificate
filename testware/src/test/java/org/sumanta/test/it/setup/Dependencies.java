@@ -13,7 +13,7 @@ public class Dependencies extends IntegrationTestDependencies {
     public static final String ORG_APACHE_HTTPMIME = "org.apache.httpcomponents:httpmime:jar";
     public static final String ORG_APACHE_HTTPCLIENT = "org.apache.httpcomponents:httpclient:jar";
     public static final String ORG_APACHE_COMMONCLIENT = "commons-httpclient:commons-httpclient:jar";
-    
+    public static final String ORG_BOUNCYCASTLE="org.bouncycastle:bcprov-jdk15:jar";
 
     public static final String WEB_CLI_EAR = "org.sumanta:Certificate-ear:ear:2.0";
 

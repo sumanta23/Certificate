@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ContentHolder {
-    private Map<String, byte[]> holder = new HashMap<>();
+    private Map<String, Content> holder = new HashMap<>();
 
     static ContentHolder contentHolder;
 
@@ -19,11 +19,11 @@ public class ContentHolder {
         return contentHolder;
     }
 
-    public Map<String, byte[]> getHolder() {
+    public Map<String, Content> getHolder() {
         return holder;
     }
 
-    public void setHolder(Map<String, byte[]> holder) {
+    public void setHolder(Map<String, Content> holder) {
         this.holder = holder;
     }
 

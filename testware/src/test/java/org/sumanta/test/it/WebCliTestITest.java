@@ -12,8 +12,16 @@ import org.junit.runner.RunWith;
 import org.sumanta.test.it.setup.DeploymentBaseIT;
 import org.sumanta.test.it.util.PropertyHolder;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.Security;
 import java.security.cert.*;
 
 
@@ -25,6 +33,10 @@ public class WebCliTestITest extends DeploymentBaseIT {
     static String downloadUrl = "http://localhost:8080/Certificate/rest/certapi/download/";
     private static final String PU = "java:jboss/datasources/postgres";
 
+    static {
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+    }
+    
     @Test
     @InSequence(1)
     @OperateOnDeployment("certificate-test")
@@ -189,6 +201,33 @@ public class WebCliTestITest extends DeploymentBaseIT {
                 System.out.println(certificate);
         }
         /* Assert.assertTrue(result.contains("MYRootCA")); */
+
+    }
+
+    
+    @Test
+    @InSequence(10)
+    @OperateOnDeployment("certificate-test")
+    @DataSource(PU)
+    public void testExportEntityCertificateTOJKS() throws IOException, CertificateException, KeyStoreException, NoSuchAlgorithmException {
+        ITutil iTutil = new ITutil();
+        String serial=PropertyHolder.getInstance().getPropertyHolder().get("entityserial");
+
+        String result = iTutil.executeCommand(urlBase, "export -cat keystore certificate -serialno " + serial + " -filename d.jks -format jks");
+        System.out.println(result);
+        
+        InputStream stream=iTutil.downloadCommand(downloadUrl + result);
+   
+        FileOutputStream fos=new FileOutputStream(new File("target/gh.jks"));
+        
+        
+        final KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+        ks.load(stream,  "secret".toCharArray());
+        
+        ks.store(fos, "secret".toCharArray());
+        fos.close();
+        
+        Assert.assertEquals(ks.getCertificate("key").getPublicKey().getAlgorithm(), "RSA");
 
     }
 

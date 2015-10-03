@@ -60,7 +60,7 @@ public class IntegrationTestDeploymentFactory {
         ear.addAsLibraries(resolver.artifact(Dependencies.ORG_APACHE_HTTPCLIENT).resolveAsFiles());
         ear.addAsLibraries(resolver.artifact(Dependencies.ORG_APACHE_COMMONCLIENT).resolveAsFiles());
         ear.addAsLibraries(resolver.artifact(Dependencies.ORG_JBOSS_SHRINKWRAP_RESOLVER_JAR).resolveAsFiles());
-        // ear.addAsLibraries(resolver.artifact(Dependencies.ORG_JBOSS___RESTEASY).resolveAsFiles());
+        ear.addAsLibraries(resolver.artifact(Dependencies.ORG_BOUNCYCASTLE).resolveAsFiles());
 
         System.out.println("EAR content:" + ear.toString(true));
         return ear;

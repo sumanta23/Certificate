@@ -36,11 +36,12 @@ public class CertApi {
         System.out.println(url);
         ResponseBuilder response;
         try {
-            byte[] fileinbyte = ContentHolder.getInstance().getHolder().get(url);
+            Content content = ContentHolder.getInstance().getHolder().get(url);
             // logic for file
-            ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(fileinbyte);
-            response = Response.ok((Object) fileinbyte);
-            response.header("Content-Disposition", "attachment; filename=\"cert.crt\"");
+            ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(content.getByteContent());
+            response = Response.ok((Object) content.getByteContent());
+            System.out.println(content.getContentType());
+            response.header("Content-Disposition", "attachment; filename=\"cert."+content.getContentType()+"\"");
             return response.build();
             // return new ByteArrayStreamingOutput(arrayInputStream);
         } catch (Exception e) {
