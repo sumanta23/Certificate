@@ -1,3 +1,4 @@
+virtualenv
 CherryPy==3.2.4
 argparse==1.2.1
 cov-core==1.7
@@ -24,4 +25,4 @@ IPy==0.75
 PyYAML==3.10
 wheel==0.24.0
 pyOpenSSL
-pyMedia
+pyasn1

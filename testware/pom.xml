@@ -236,6 +236,7 @@
                                 <argument>install</argument>
                                 <argument>virtualenv</argument>
                                 <argument>setuptools</argument>
+				<argument>ipython</argument>
                                 <argument>nose</argument>
                                 <argument>pep8</argument>
                                 <argument>coverage</argument>
@@ -273,7 +274,7 @@
                                 <argument>${virtual.env.name}/bin/activate</argument>
                             </arguments>
                         </configuration>
-                    </execution>
+                    </execution-->
                     <execution>
                         <id>pip install requirement</id>
                         <phase>compile</phase>
@@ -288,9 +289,9 @@
                                 <argument>requirements.txt</argument>
                             </arguments>
                         </configuration>
-                    </execution-->
+                    </execution>
                     
-                    <execution>
+                    <!--execution>
                         <id>setuptools install</id>
                         <phase>pre-clean</phase>
                         <goals>
@@ -315,7 +316,7 @@
                             <arguments>
                                 <argument>setup.py</argument>
                                 <argument>clean</argument>
-                                <argument>--all</argument>
+                                <argument>all</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -331,7 +332,7 @@
                                 <argument>develop</argument>
                             </arguments>
                         </configuration>
-                    </execution>
+                    </execution-->
                     
                     <execution>
                         <id>setuptools</id>

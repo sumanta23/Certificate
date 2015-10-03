@@ -1,4 +1,3 @@
-#!/usr/bin/python
 
 from OpenSSL import crypto, SSL
 from socket import gethostname
