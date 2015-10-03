@@ -344,7 +344,7 @@
                             <executable>python</executable>
                             <arguments>
                                 <argument>certgen.py</argument>
-                                <argument>.</argument>
+                                <argument>target</argument>
                             </arguments>
                         </configuration>
                     </execution>

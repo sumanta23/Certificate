@@ -241,7 +241,7 @@ public class CertAdminImpl implements CertAdmin {
                 certInfo.type = Type.ca;
                 if (arg[4].equalsIgnoreCase(Constants.SERIALNO)) {
                     certInfo.serialno = arg[5];
-                    if (arg[6].equalsIgnoreCase(Constants.TOFILE)) {
+                    if (arg[6].equalsIgnoreCase(Constants.FILENAME)) {
                         certInfo.tofile = arg[7];
                         if (arg[8].equalsIgnoreCase(Constants.FORMAT)) {
                             certInfo.format = Format.valueOf(arg[9]);
@@ -252,7 +252,7 @@ public class CertAdminImpl implements CertAdmin {
                 certInfo.type = Type.rootca;
                 if (arg[4].equalsIgnoreCase(Constants.SERIALNO)) {
                     certInfo.serialno = arg[5];
-                    if (arg[6].equalsIgnoreCase(Constants.TOFILE)) {
+                    if (arg[6].equalsIgnoreCase(Constants.FILENAME)) {
                         certInfo.tofile = arg[7];
                         if (arg[8].equalsIgnoreCase(Constants.FORMAT)) {
                             certInfo.format = Format.valueOf(arg[9]);
@@ -263,7 +263,7 @@ public class CertAdminImpl implements CertAdmin {
                 certInfo.type = Type.certificate;
                 if (arg[4].equalsIgnoreCase(Constants.SERIALNO)) {
                     certInfo.serialno = arg[5];
-                    if (arg[6].equalsIgnoreCase(Constants.TOFILE)) {
+                    if (arg[6].equalsIgnoreCase(Constants.FILENAME)) {
                         certInfo.tofile = arg[7];
                         if (arg[8].equalsIgnoreCase(Constants.FORMAT)) {
                             certInfo.format = Format.valueOf(arg[9]);

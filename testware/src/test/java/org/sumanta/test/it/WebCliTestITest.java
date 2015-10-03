@@ -230,6 +230,21 @@ public class WebCliTestITest extends DeploymentBaseIT {
         Assert.assertEquals(ks.getCertificate("key").getPublicKey().getAlgorithm(), "RSA");
 
     }
+    
+    @Test
+    @InSequence(10)
+    @OperateOnDeployment("certificate-test")
+    @DataSource(PU)
+    public void testExportEntityCertificateTOP12() throws IOException, CertificateException, KeyStoreException, NoSuchAlgorithmException {
+        ITutil iTutil = new ITutil();
+        String serial=PropertyHolder.getInstance().getPropertyHolder().get("entityserial");
+
+        String result = iTutil.executeCommand(urlBase, "export -cat keystore certificate -serialno " + serial + " -filename d.p12 -format p12");
+        System.out.println(result);
+        
+        InputStream stream=iTutil.downloadCommand(downloadUrl + result);
+        
+    }
 
 
 }

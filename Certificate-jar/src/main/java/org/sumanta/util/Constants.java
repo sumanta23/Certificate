@@ -13,6 +13,6 @@ public class Constants {
     public static final String ISSUER = "-issuer";
     public static final String SERIALNO = "-serialno";
     public static final String CAT = "-cat";
-    public static final String TOFILE = "-tofile";
+    public static final String FILENAME = "-filename";
     public static final String FORMAT = "-format";
 }

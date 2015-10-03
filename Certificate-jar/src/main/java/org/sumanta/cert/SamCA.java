@@ -223,10 +223,11 @@ public class SamCA {
             if (Category.keystore == cat) {
                 final Certificate[] certificate = { cert };
                 if (Format.p12 == format) {
-                    ToP12.toP12withPrivateKey("key", "secret", certificate, key.getPrivate(), "key.p12");
+                    File f=ToP12.toP12withPrivateKey("key", "secret", certificate, key.getPrivate(), "key.p12");
+                    fileid=saveFileToFileHolder(f, file, "p12");
                 } else {
                     File f=ToJKS.toJKSKeyStore(certificate, key.getPrivate(), "secret", "key", file);
-                    fileid=saveFileToFileHolder(f, file);
+                    fileid=saveFileToFileHolder(f, file, "jks");
                 }
             } else if (Category.truststore == cat) {
                 if (Format.jks == format) {
@@ -257,7 +258,7 @@ public class SamCA {
      * @throws SignatureException
      * @throws IOException
      */
-    public String saveFileToFileHolder(File certificate, String name) throws NoSuchAlgorithmException, CertificateEncodingException, NoSuchProviderException, InvalidKeyException,
+    public String saveFileToFileHolder(File certificate, String name, String type) throws NoSuchAlgorithmException, CertificateEncodingException, NoSuchProviderException, InvalidKeyException,
             SignatureException, IOException {
         String key = "http" + System.currentTimeMillis();
         Map<String, Content> holder = ContentHolder.getInstance().getHolder();
@@ -274,7 +275,7 @@ public class SamCA {
 	    fileInputStream.close();
         }catch(Exception e){}
         
-        Content content=new Content("jks",bFile);
+        Content content=new Content(type,bFile);
         holder.put(key, content);
         return key;
     }
