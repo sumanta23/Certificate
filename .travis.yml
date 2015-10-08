@@ -1,3 +1,3 @@
 language: java
-install: sudo pip install virtualenv; virtualenv .env; source .env/bin/activate
+install: sudo pip install virtualenv;
 script: mvn clean install -P jboss_managed_local

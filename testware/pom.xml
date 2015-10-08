@@ -26,7 +26,7 @@
 			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.jboss.arquillian.extension</groupId>
 			<artifactId>arquillian-persistence-dbunit</artifactId>
@@ -210,173 +210,114 @@
 							</execution>
 						</executions>
 					</plugin>
-					
+
 					<plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <configuration>
-                    <executable>${scripting.python.path}</executable>
-                    <workingDirectory>${basedir}</workingDirectory>
-                    <environmentVariables>
-                        <VERSION>${project.version}</VERSION>
-                        <BUILD_TIMESTAMP>${maven.build.timestamp}</BUILD_TIMESTAMP>
-                        <V_ENV>${virtual.env.name}</V_ENV>
-                    </environmentVariables>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>virtualenv setuptools install</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>pip</executable>
-                            <arguments>
-                                <argument>install</argument>
-                                <argument>virtualenv</argument>
-                                <argument>setuptools</argument>
-				<argument>ipython</argument>
-                                <argument>nose</argument>
-                                <argument>pep8</argument>
-                                <argument>coverage</argument>
-                                <!-- Additional dependencies. These are getting installed automatically in the virtual env.
-                                Uncomment these if you want the build to be faster -->
-                                <!--<argument>memory-profiler</argument>
-                                <argument>mock</argument>
-                                <argument>responses</argument>
-                                <argument>unittest2</argument>-->
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <!--execution>
-                        <id>create venv</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>virtualenv</executable>
-                            <arguments>
-                                <argument>${virtual.env.name}</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>source venv</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>source</executable>
-                            <arguments>
-                                <argument>${virtual.env.name}/bin/activate</argument>
-                            </arguments>
-                        </configuration>
-                    </execution-->
-                    <execution>
-                        <id>pip install requirement</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>pip</executable>
-                            <arguments>
-                                <argument>install</argument>
-                                <argument>-r</argument>
-                                <argument>requirements.txt</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    
-                    <!--execution>
-                        <id>setuptools install</id>
-                        <phase>pre-clean</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>pip</executable>
-                            <arguments>
-                                <argument>install</argument>
-                                <argument>setuptools</argument>
-                                
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>setuptools clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>
-                                <argument>setup.py</argument>
-                                <argument>clean</argument>
-                                <argument>all</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>setuptools develop</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>
-                                <argument>setup.py</argument>
-                                <argument>develop</argument>
-                            </arguments>
-                        </configuration>
-                    </execution-->
-                    
-                    <execution>
-                        <id>setuptools</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>python</executable>
-                            <arguments>
-                                <argument>certgen.py</argument>
-                                <argument>target</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    
-                    
-                    </executions>
-                   </plugin>
-                   
-                   
-                   
-                   
-                <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
-                <executions>
-                    <execution>
-                        <id>PIP list</id>
-                        <phase>compile</phase>
-                        <configuration>
-                            <target name="pip list">
-                                <exec executable="pip" failonerror="false">
-                                    <arg value="list" />
-                                </exec>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-					
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<configuration>
+							<executable>${scripting.python.path}</executable>
+							<workingDirectory>${basedir}</workingDirectory>
+							<environmentVariables>
+								<VERSION>${project.version}</VERSION>
+								<BUILD_TIMESTAMP>${maven.build.timestamp}</BUILD_TIMESTAMP>
+								<V_ENV>${virtual.env.name}</V_ENV>
+							</environmentVariables>
+						</configuration>
+						<executions>
+							<execution>
+								<id>create venv</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>virtualenv</executable>
+									<arguments>
+										<argument>${virtual.env.name}</argument>
+									</arguments>
+								</configuration>
+							</execution>
+
+							<execution>
+								<id>setuptools install</id>
+								<phase>pre-clean</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>pip</executable>
+									<arguments>
+										<argument>install</argument>
+										<argument>setuptools</argument>
+									</arguments>
+								</configuration>
+							</execution>
+							<execution>
+								<id>setuptools clean</id>
+								<phase>clean</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<arguments>
+										<argument>setup.py</argument>
+										<argument>clean</argument>
+										<argument>--all</argument>
+									</arguments>
+								</configuration>
+							</execution>
+							<execution>
+								<id>setuptools develop</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<arguments>
+										<argument>setup.py</argument>
+										<argument>develop</argument>
+									</arguments>
+								</configuration>
+							</execution>
+
+							<execution>
+								<id>setuptools</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>${virtual.env.name}/bin/python</executable>
+									<arguments>
+										<argument>certgen.py</argument>
+										<argument>target</argument>
+									</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.8</version>
+						<executions>
+							<execution>
+								<id>PIP list</id>
+								<phase>compile</phase>
+								<configuration>
+									<target name="pip list">
+										<exec executable="pip" failonerror="false">
+											<arg value="list" />
+										</exec>
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
