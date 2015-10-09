@@ -29,8 +29,8 @@ import java.security.cert.*;
 @Stateless
 public class WebCliTestITest extends DeploymentBaseIT {
 
-    static String urlBase = "http://localhost:8080/Certificate/rest/certapi/execute/";
-    static String downloadUrl = "http://localhost:8080/Certificate/rest/certapi/download/";
+    static String urlBase = "https://localhost:8443/Certificate/rest/certapi/execute/";
+    static String downloadUrl = "https://localhost:8443/Certificate/rest/certapi/download/";
     private static final String PU = "java:jboss/datasources/postgres";
 
     static {

@@ -208,6 +208,26 @@
 									</resources>
 								</configuration>
 							</execution>
+							<execution>
+								<id>copy-resources-3</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${jboss.home}/standalone/configuration/</outputDirectory>
+									<resources>
+										<resource>
+											<directory>.</directory>
+											<includes>
+												<include>botnet.key</include>
+												<include>botnet.crt</include>
+											</includes>
+											<filtering>true</filtering>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
 						</executions>
 					</plugin>
 				</plugins>
