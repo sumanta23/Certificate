@@ -1,3 +1,4 @@
 language: java
-install: sudo pip install virtualenv;
-script: mvn clean install -P jboss_managed_local -X
+before_install: sudo pip install virtualenv; virtualenv .venv; source .venv/bin/activate; pip install -r testware/requirements.txt
+install: python testware/certgen.py testware
+script: mvn clean install -P jboss_managed_local
