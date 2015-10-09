@@ -224,7 +224,7 @@
 							</environmentVariables>
 						</configuration>
 						<executions>
-							<execution>
+							<!--execution>
 								<id>create venv</id>
 								<phase>compile</phase>
 								<goals>
@@ -236,7 +236,7 @@
 										<argument>${virtual.env.name}</argument>
 									</arguments>
 								</configuration>
-							</execution>
+							</execution-->
 
 							<execution>
 								<id>setuptools install</id>
