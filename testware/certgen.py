@@ -15,7 +15,7 @@ def main(argv):
     createcert(arg)
    
 def createcert(cert_dir):
-    cn=gethostname()
+    cn='ssltest'
     CERT_FILE = "%s.crt" % cn
     KEY_FILE = "%s.key" % cn
     k = crypto.PKey()

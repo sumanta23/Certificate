@@ -397,7 +397,7 @@
         <subsystem xmlns="urn:jboss:domain:web:1.1" default-virtual-server="default-host" native="true">
             <connector name="http" protocol="HTTP/1.1" scheme="http" socket-binding="http"/>
             <connector name="https" scheme="https" protocol="HTTP/1.1" socket-binding="https" enable-lookups="false" secure="true">
-               <ssl  certificate-key-file="botnet.key" certificate-file="botnet.crt"/>
+               <ssl  certificate-key-file="ssltest.key" certificate-file="ssltest.crt"/>
             </connector>
             <virtual-server name="default-host" enable-welcome-root="true">
                 <alias name="localhost"/>
