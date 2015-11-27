@@ -233,9 +233,6 @@ public class SamCA {
                 if (Format.jks == format) {
                     ToJKS.toJKSTrustStore(exportCertificateChain(cert.getSerialNumber().toString()), "secret", file);
                 }
-                // ToP12.toP12withPrivateKey("key", "secret",
-                // SamCA.exportCertificateChain(cert.getSerialNumber().toString()),
-                // key.getPrivate(), "key.p12");
             } else if (Category.certificate == cat) {
                 fileid = saveCertificateToFileHolder(cert, file);
             }
@@ -275,7 +272,7 @@ public class SamCA {
 	    fileInputStream.close();
         }catch(Exception e){}
         
-        Content content=new Content(type,bFile);
+        Content content=new Content(name,type,bFile);
         holder.put(key, content);
         return key;
     }
@@ -297,7 +294,7 @@ public class SamCA {
         String key = "http" + System.currentTimeMillis();
         Map<String, Content> holder = ContentHolder.getInstance().getHolder();
         byte[] f = certificate.getEncoded();
-        Content content=new Content("crt",f);
+        Content content=new Content(name,"crt",f);
         holder.put(key, content);
         return key;
     }
